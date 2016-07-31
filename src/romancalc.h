@@ -23,8 +23,10 @@
 
 
 #define MAX_STR_LEN_ROMAN_NUM (75 + 1)
+void roman_numeral_str_clear(char* roman_numeral_str);
 char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);
 void  rnum_str_free(char* roman_numeral_str);
 int   rnum_check(char *rnum_str);						// check roman number string for valid digits
 #endif
+

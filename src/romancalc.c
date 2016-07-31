@@ -11,22 +11,37 @@
 
 char *rdigits="IVXLCDM";	//roman numerals in order
 
+void roman_numeral_str_clear(char* roman_numeral_str){
+	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM);
+}
 char *roman_numeral_str_create(void){
 	char *str = (char*)malloc(MAX_STR_LEN_ROMAN_NUM);
 	roman_numeral_str_clear(str);
 	return str;
-}
-void roman_numeral_str_clear(char* roman_numeral_str){
-	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM);
 }
 void  roman_numeral_str_free(char* roman_numeral_str){
 	free (roman_numeral_str);
 }
 
 int   rnum_check(char *rnum_str){						// check roman number string for valid digits
-	if(rnum_str){
-		
-		return 0;
+	char *rslt_ptr;										// result from stirng check
+	if(rnum_str){										// if not give empty roman numer string check
+		while(*rnum_str){								// check each digit see if valid roman numeral
+			rslt_ptr = strchr(rdigits, toupper(*rnum_str));		// check current character against reference list
+			if(rslt_ptr == NULL){						// if character is not roman numeral (in ref list)
+				break;									// then exit out and report non valid value
+			}
+			rnum_str++;									// check next digit;
+		}
 	}
-	return -1;	// was given NULL string or invalid value
+	else
+		return -1;										// was given NULL string
+	
+														// if we did not make it to end of string
+	if(*rnum_str)										// then there was a non-roman numeral characters
+		return -1;										// invalid value
+	return 0;
 }
+
+
+/* end of romancalc.c */
