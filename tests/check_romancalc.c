@@ -20,7 +20,7 @@ teardown (void)
 
 START_TEST (test_roman_digit_check_individual)
 {
-	TCase *tc_digit_test = tcase_create("Digits Individual");
+	TCase *tc_digit_test = tcase_create("Digits Individual Individual");
 	ck_assert_int_eq (rnum_check ("i"), 0);	// check lower case
 	ck_assert_int_eq (rnum_check ("I"), 0);	// check upper case
 	ck_assert_int_eq (rnum_check ("v"), 0);	// check lower case
@@ -46,31 +46,74 @@ START_TEST (test_roman_digit_check_individual_error)
 END_TEST
 
 
+START_TEST (test_roman_digit_check_string	)
+{
+	TCase *tc_digit_check_str = tcase_create("Digits String");
+	ck_assert_int_eq (rnum_check ("III"),    0);	// check lower case
+	ck_assert_int_eq (rnum_check ("IV"),     0);	// check upper case
+	ck_assert_int_eq (rnum_check ("XXXVII"), 0);	// check lower case
+	ck_assert_int_eq (rnum_check ("LLL"), 0);	// check upper case
+	ck_assert_int_eq (rnum_check ("MDCLXVI"), 0);	// check lower case
+	ck_assert_int_eq (rnum_check ("MMMDCCCLXXXVIII"), 0);	// check upper case
+	ck_assert_int_eq (rnum_check ("MMMMMMMDCCLXXVI"), 0);	// check lower case
+}
+END_TEST
+
+START_TEST (test_roman_digit_check_string_error	)
+{
+	TCase *tc_digit_check_str = tcase_create("Digits String For Bad Char");
+	ck_assert_int_eq (rnum_check ("qIII"),		-1);		// bad char at begin
+	ck_assert_int_eq (rnum_check ("IqII"),		-1);		// bad char at mid
+	ck_assert_int_eq (rnum_check ("IIIq"),		-1);		// bad char at end
+	ck_assert_int_eq (rnum_check ("IqV"),		-1);		// bad char
+	ck_assert_int_eq (rnum_check ("XXqXVII"),	-1);		// bad char
+	ck_assert_int_eq (rnum_check ("LeLL"),		-1);		// bad char
+	ck_assert_int_eq (rnum_check ("MDrCLXVI"),	-1);		// bad char
+	ck_assert_int_eq (rnum_check ("MMMDChCCLaXXXVIII"), -1);		//bad char
+	ck_assert_int_eq (rnum_check ("MMhMMsMMMxDCCLXXVI"), -1);	// bad char
+}
+END_TEST
+
+
+
 Suite *
 romancalc_suite (void)
 {
-  Suite *s = suite_create ("Roman Calc Suite");
-
+	Suite *s = suite_create ("\nRoman Calc Suite");
+	
 	/* Core test case */
 	TCase *tc_core = tcase_create ("Core/n");
 	tcase_add_checked_fixture (tc_core, setup, teardown);
 	suite_add_tcase (s, tc_core);
-
+	
 	/* Digits test case */
 	TCase *tc_digits = tcase_create ("Digits/n");
 	tcase_add_test (tc_digits, test_roman_digit_check_individual);
 	tcase_add_test (tc_digits, test_roman_digit_check_individual_error);
 	suite_add_tcase (s, tc_digits);
-		
-  return s;
+	
+	return s;
+}
+
+Suite *
+romancalc_suite_string (void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Strings Manipulation");
+	
+	/* Digits test case */
+	TCase *tc_string_check = tcase_create ("Test for String Errors, Bad Chars/n");
+	tcase_add_test (tc_string_check, test_roman_digit_check_string);
+	tcase_add_test (tc_string_check, test_roman_digit_check_string_error);
+	suite_add_tcase (s, tc_string_check);
+	return s;
 }
 
 int
 main (void)
 {
   int number_failed;
-  Suite *s = romancalc_suite ();
-  SRunner *sr = srunner_create (s);
+  SRunner *sr = srunner_create (romancalc_suite ());
+  srunner_add_suite(sr, romancalc_suite_string());
   srunner_run_all (sr, CK_NORMAL);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);
