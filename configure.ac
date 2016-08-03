@@ -6,7 +6,7 @@
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_COMMANDS([mkdir], [$MKDIR_P/m4])
 AC_PREREQ([2.59])
-AC_INIT([romancalc], [0.3], [check-devel AT lists.sourceforge.net])
+AC_INIT([romancalc], [0.3], [author at comments])
 
 # unique source file --- primitive safety check 
 AC_CONFIG_SRCDIR([src/romancalc.c])

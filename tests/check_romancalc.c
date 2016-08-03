@@ -9,13 +9,13 @@ char *tst_str;
 void
 setup (void)
 {
-	tst_str = roman_numeral_str_create ();
+	tst_str = rnum_str_create ();
 }
 
 void
 teardown (void)
 {
-	roman_numeral_str_free (tst_str);
+	rnum_str_free (tst_str);
 }
 
 START_TEST (test_roman_digit_check_individual)
@@ -46,6 +46,25 @@ START_TEST (test_roman_digit_check_individual_error)
 END_TEST
 
 
+Suite *
+romancalc_suite (void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite");
+	
+	/* Core test case */
+	TCase *tc_core = tcase_create ("Core/n");
+	tcase_add_checked_fixture (tc_core, setup, teardown);
+	suite_add_tcase (s, tc_core);
+	
+	/* Digits test case */
+	TCase *tc_digits = tcase_create ("Digits/n");
+	tcase_add_test (tc_digits, test_roman_digit_check_individual);
+	tcase_add_test (tc_digits, test_roman_digit_check_individual_error);
+	suite_add_tcase (s, tc_digits);
+	
+	return s;
+}
+
 START_TEST (test_roman_digit_check_string	)
 {
 	TCase *tc_digit_check_str = tcase_create("Digits String");
@@ -74,26 +93,20 @@ START_TEST (test_roman_digit_check_string_error	)
 }
 END_TEST
 
-
-
-Suite *
-romancalc_suite (void)
+START_TEST (test_roman_subtraction_removal	)
 {
-	Suite *s = suite_create ("\nRoman Calc Suite");
-	
-	/* Core test case */
-	TCase *tc_core = tcase_create ("Core/n");
-	tcase_add_checked_fixture (tc_core, setup, teardown);
-	suite_add_tcase (s, tc_core);
-	
-	/* Digits test case */
-	TCase *tc_digits = tcase_create ("Digits/n");
-	tcase_add_test (tc_digits, test_roman_digit_check_individual);
-	tcase_add_test (tc_digits, test_roman_digit_check_individual_error);
-	suite_add_tcase (s, tc_digits);
-	
-	return s;
+	TCase *tc_subt_remov = tcase_create("Subtraction Removal test");
+	ck_assert_str_eq (rnum_subt_removal ("IV"),		"IIII" );	// 4
+	ck_assert_str_eq (rnum_subt_removal ("IX"),		"VIIII");	// 9
+	ck_assert_str_eq (rnum_subt_removal ("XL"),		"XXXX" );	// 40
+	ck_assert_str_eq (rnum_subt_removal ("XC"),		"LXXXX");	// 90
+	ck_assert_str_eq (rnum_subt_removal ("CD"),		"CCCC" );	// 400
+	ck_assert_str_eq (rnum_subt_removal ("CM"),		"DCCCC");	// 900
+	ck_assert_str_eq (rnum_subt_removal ("LIV"),	"LIIII" );	// 54
+	ck_assert_str_eq (rnum_subt_removal ("MXCIII"),	"MLXXXXIII");	//1093
+	ck_assert_str_eq (rnum_subt_removal ("MCMXLIV"),"MDCCCCXXXXIIII");	// 1944
 }
+END_TEST
 
 Suite *
 romancalc_suite_string (void)
@@ -105,6 +118,11 @@ romancalc_suite_string (void)
 	tcase_add_test (tc_string_check, test_roman_digit_check_string);
 	tcase_add_test (tc_string_check, test_roman_digit_check_string_error);
 	suite_add_tcase (s, tc_string_check);
+	
+	/* Digits test case */
+	TCase *tc_sub_removal = tcase_create ("Test Subtractionan removal/n");
+	tcase_add_test (tc_sub_removal, test_roman_subtraction_removal);
+	suite_add_tcase (s, tc_sub_removal);
 	return s;
 }
 
