@@ -119,12 +119,13 @@ char *rnum_subt_removal(char *rnum_str){
 }
 
 /*******************************************************
- * rnum_check check digits to ensure they are only roman
- * numerals.
+ * rnum_digit_group sort roman numerals by value in 
+ * correct order
  * input:
  *	     rnum_str  NULL terminated string
  * returns:
  *       null terminated string properly order by value
+
  *******************************************************/
 char *rnum_digit_group(char *rnum_str){
 	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
@@ -142,7 +143,7 @@ char *rnum_digit_group(char *rnum_str){
 				*pdest++ = *pref;							// store in numerical value in order
 		}
 	}
-
+	
 	return strdup(str_out_tmp);								// return result
 }
 
