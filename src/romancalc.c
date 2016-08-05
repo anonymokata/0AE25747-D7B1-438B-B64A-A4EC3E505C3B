@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 #define TSTR_LEN 100
 
 char *rdigits="MDCLXVI";	// roman numerals in order
@@ -73,40 +74,38 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 char *rnum_subt_removal(char *rnum_str){
 	char * ch_rslt;
 	char tstr[TSTR_LEN];
-	char tmp_str_cmp[3];								// store next 2 chars from input string
-	memset(tmp_str_cmp,0,3);
 	char *cptr_dest = tstr;								// point to destination of next chunchk
+	
 	memset(tstr, 0, TSTR_LEN);
 	if(rnum_str){										// ensure we were given a string
 		if(strlen(rnum_str) >= 2){						// roman subtraction can only occur in 2 or more chars
 			while(*rnum_str){
-				strncpy(tmp_str_cmp,rnum_str,2);			// get next 2 chars to compare
-				if(strcmp(tmp_str_cmp, "IV") == 0){			// 4
+				if(strncmp(rnum_str, "IV", 2) == 0){		// 4
 					strcpy(cptr_dest, "IIII");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
-				} else if(strcmp(tmp_str_cmp, "IX") == 0){		// 9
+					rnum_str += 2;							// move source pointer past unsubtracted pair
+				} else if(strncmp(rnum_str, "IX", 2) == 0){	// 9
 					strcpy(cptr_dest, "VIIII");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
-				} else if(strcmp(tmp_str_cmp, "XL") == 0){		// 40
+					rnum_str += 2;							// move source pointer past unsubtracted pair
+				} else if(strncmp(rnum_str, "XL", 2) == 0){		// 40
 					strcpy(cptr_dest, "XXXX");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
-				} else if(strcmp(tmp_str_cmp, "XC") == 0){		// 90
+					rnum_str += 2;							// move source pointer past unsubtracted pair
+				} else if(strncmp(rnum_str, "XC", 2) == 0){		// 90
 					strcpy(cptr_dest, "LXXXX");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
-				} else if(strcmp(tmp_str_cmp, "CD") == 0){		// 400
+					rnum_str += 2;							// move source pointer past unsubtracted pair
+				} else if(strncmp(rnum_str, "CD", 2) == 0){		// 400
 					strcpy(cptr_dest, "CCCC");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
-				} else if(strcmp(tmp_str_cmp, "CM") == 0){		// 900
+					rnum_str += 2;							// move source pointer past unsubtracted pair
+				} else if(strncmp(rnum_str, "CM", 2) == 0){		// 900
 					strcpy(cptr_dest, "DCCCC");				// add in unsubtracted value
 					cptr_dest = strchr(cptr_dest,0);		// point to new end of string
-					rnum_str++; rnum_str++;					// move source pointer past unsubtracted pair
+					rnum_str += 2;							// move source pointer past unsubtracted pair
 				} else {									// else just sd in character
-					*cptr_dest++ = *rnum_str++;					// and fix next source and destination
+					*cptr_dest++ = *rnum_str++;				// and fix next source and destination
 				}
 			}
 			ch_rslt = strdup(tstr);							// use strdup to alloc memory
@@ -119,13 +118,13 @@ char *rnum_subt_removal(char *rnum_str){
 }
 
 /*******************************************************
- * rnum_digit_group sort roman numerals by value in 
+ * rnum_digit_group sort roman numerals by value in
  * correct order
  * input:
  *	     rnum_str  NULL terminated string
  * returns:
  *       null terminated string properly order by value
-
+ 
  *******************************************************/
 char *rnum_digit_group(char *rnum_str){
 	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
@@ -144,6 +143,74 @@ char *rnum_digit_group(char *rnum_str){
 		}
 	}
 	
+	return strdup(str_out_tmp);								// return result
+}
+
+/*******************************************************
+ * rnum_reduce reduce multiple roman numeral digits to
+ * next higher value when necessary
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *       null terminated string properly order by value
+ *       if a value is reduced that may need to be
+ *       reduced again, then we may ned to reduce again
+ *       so we are not done and loop agian
+ *******************************************************/
+char *rnum_reduce(char *rnum_str){
+	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
+	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
+	
+	char *psrc;												// input ptr
+	char *pdest;											// output ptr
+	bool done;												// exit when done
+	
+	memset(str_in_tmp, 0, TSTR_LEN);						// init tstr null
+	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// store in temp storage
+	done = false;											// init
+	
+	while(! done){
+		done = true;										// assume done, and clear if further
+															// reduction may need to occurr
+		memset(str_out_tmp, 0, TSTR_LEN);					// init tstr null
+		
+		psrc  = str_in_tmp;									// point to input string
+		pdest = str_out_tmp;								// init output pointer
+		
+		//"MDCLXVI";
+		while(*psrc){										// until end of string
+			if(strncmp("DD",psrc,2) == 0){					// if 500*2
+				*pdest++ = 'M';								// then insert 1000
+				psrc += 2;									// push past the 2 digits
+			} else if(strncmp("CCCCC",psrc,5) == 0){		// if 100*5
+				*pdest++ = 'D';								// then insert 500
+				psrc += 5;									// push past the 5 digits
+				done = false;								// reduced value, may need to reduce again
+			} else if(strncmp("LL",psrc,2) == 0){			// if 50*2
+				*pdest++ = 'C';								// then insert 100
+				psrc += 2;									// push past the 2 digits
+				done = false;								// reduced value, may need to reduce again
+			} else if(strncmp("XXXXX",psrc,5) == 0){		// if 10*5
+				*pdest++ = 'L';								// then insert 50
+				psrc += 5;									// push past the 5 digits
+				done = false;								// reduced value, may need to reduce again
+			} else if(strncmp("VV",psrc,2) == 0){			// if 5*2
+				*pdest++ = 'X';								// then insert 10
+				psrc += 2;									// push past the 2 digits
+				done = false;								// reduced value, may need to reduce again
+			} else if(strncmp("IIIII",psrc,5) == 0){		// if 1*5
+				*pdest++ = 'V';								// then insert 5
+				psrc += 5;									// push past the 5 digits
+				done = false;								// reduced value, may need to reduce again
+			} else {										// non-reduced digit
+				*pdest++ = *psrc++;							// store and bump forward
+			}
+		}
+		if(!done){
+			memset(str_in_tmp, 0, TSTR_LEN);				// init tstr null
+			strncpy(str_in_tmp, str_out_tmp, TSTR_LEN);		// store in temp storage
+		}
+	}
 	return strdup(str_out_tmp);								// return result
 }
 

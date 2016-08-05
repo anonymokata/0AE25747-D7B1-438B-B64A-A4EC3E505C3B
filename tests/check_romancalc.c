@@ -176,7 +176,7 @@ START_TEST (test_roman_digit_grouping	)
 {
 	ck_assert_str_eq (rnum_digit_group ("MDCLXVI"),"MDCLXVI");
 	ck_assert_str_eq (rnum_digit_group ("IVXLCDM"),"MDCLXVI");
-	//	ck_assert_str_eq (rnum_digit_group ("IVXLCDMIVXLCDM"),"MMDDCCLLXXVVII");
+	ck_assert_str_eq (rnum_digit_group ("IVXLCDMIVXLCDM"),"MMDDCCLLXXVVII");
 }
 END_TEST
 
@@ -189,7 +189,39 @@ romancalc_suite_digit_grouping_check(void)
 	TCase *tc_digit_group = tcase_create ("Test Roman Digit Grouping/n");
 	tcase_add_test (tc_digit_group, test_roman_digit_grouping);
 	suite_add_tcase (s, tc_digit_group);
+	
+	return s;
+}
 
+START_TEST (test_numeral_reduction	)
+{
+	ck_assert_str_eq (rnum_reduce ("DD"),"M");
+	ck_assert_str_eq (rnum_reduce ("CCCCC"),"D");
+	ck_assert_str_eq (rnum_reduce ("CCCCCCCCCC"),"M");
+	ck_assert_str_eq (rnum_reduce ("LL"),"C");
+	ck_assert_str_eq (rnum_reduce ("XXXXX"),"L");
+	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXX"),"C");
+	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXXXXXXX"),"CL");
+	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXXXXXXXXXXXX"),"CC");
+	ck_assert_str_eq (rnum_reduce ("VV"),"X");
+	ck_assert_str_eq (rnum_reduce ("IIIII"),"V");
+	ck_assert_str_eq (rnum_reduce ("VIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce ("IIIIIIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce ("IIIIIIIIIIIIIII"),"XV");
+	ck_assert_str_eq (rnum_reduce ("IIIIIIIIIIIIIIIIIIII"),"XX");
+}
+END_TEST
+
+Suite *
+romancalc_suite_digit_reduciton_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Digit group reduction");
+	
+	/* Digits test case */
+	TCase *tc_digit_reduce = tcase_create ("Test Roman Digit Grouping/n");
+	tcase_add_test (tc_digit_reduce, test_numeral_reduction);
+	suite_add_tcase (s, tc_digit_reduce);
+	
 	return s;
 }
 
@@ -202,6 +234,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_check());
   srunner_add_suite(sr, romancalc_suite_subtract_simplification_check());
   srunner_add_suite(sr, romancalc_suite_digit_grouping_check());
+  srunner_add_suite(sr, romancalc_suite_digit_reduciton_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);

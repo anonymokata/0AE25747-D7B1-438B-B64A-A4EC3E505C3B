@@ -6,10 +6,13 @@ Roman Calc Valid Digit Check
 Roman Calc Suite Subtraction Removal Simplification
  
 Roman Calc Suite Digit Grouping Checking
-100%: Checks: 6, Failures: 0, Errors: 0
+ 
+Roman Calc Suite Digit group reduction
+100%: Checks: 7, Failures: 0, Errors: 0
 check_romancalc.c:39:P:Digits/n:test_roman_digit_check_individual:0: Passed
 check_romancalc.c:84:P:Digits/n:test_roman_digit_check_individual_error:0: Passed
 check_romancalc.c:116:P:Test for String Errors, Bad Chars/n:test_roman_digit_check_string:0: Passed
 check_romancalc.c:130:P:Test for String Errors, Bad Chars/n:test_roman_digit_check_string_error:0: Passed
 check_romancalc.c:158:P:Test Subtractionan removal/n:test_roman_subtraction_removal:0: Passed
-check_romancalc.c:178:P:Test Roman Digit Grouping/n:test_roman_digit_grouping:0: Passed
+check_romancalc.c:179:P:Test Roman Digit Grouping/n:test_roman_digit_grouping:0: Passed
+check_romancalc.c:211:P:Test Roman Digit Grouping/n:test_numeral_reduction:0: Passed
