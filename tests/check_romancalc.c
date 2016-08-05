@@ -175,6 +175,8 @@ romancalc_suite_subtract_simplification_check(void)
 START_TEST (test_roman_digit_grouping	)
 {
 	ck_assert_str_eq (rnum_digit_group ("MDCLXVI"),"MDCLXVI");
+	ck_assert_str_eq (rnum_digit_group ("IVXLCDM"),"MDCLXVI");
+	//	ck_assert_str_eq (rnum_digit_group ("IVXLCDMIVXLCDM"),"MMDDCCLLXXVVII");
 }
 END_TEST
 

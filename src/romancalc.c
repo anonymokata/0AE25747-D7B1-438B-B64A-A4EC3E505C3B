@@ -10,7 +10,7 @@
 #include <ctype.h>
 #define TSTR_LEN 100
 
-char *rdigits="IVXLCDM";	//roman numerals in order
+char *rdigits="MDCLXVI";	// roman numerals in order
 
 void rnum_str_clear(char* roman_numeral_str){
 	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM);
@@ -127,16 +127,23 @@ char *rnum_subt_removal(char *rnum_str){
  *       null terminated string properly order by value
  *******************************************************/
 char *rnum_digit_group(char *rnum_str){
-	char * ch_rslt;
-	char tstr[TSTR_LEN];								// temp storage while grouping/sorting digits
-	char tmp_str_cmp[3];								// store next 2 chars from input string
-	char *cptr_dest = tstr;								// point to destination of next chunchk
-
-	memset(tstr, 0, TSTR_LEN);							// init tstr null
-	memset(tmp_str_cmp,0,3);							//
+	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
 	
+	char *psrc;												// input ptr
+	char *pdest;											// output ptr
+	char *pref;												// roman numeral order reference value
+	
+	memset(str_out_tmp, 0, TSTR_LEN);						// init tstr null
+	
+	pdest = str_out_tmp;									// init output pointer
+	for(pref = rdigits; *pref; pref++){						// step through roman digits in value order
+		for(psrc  = rnum_str; *psrc; psrc++){				// step through values to be sorted
+			if(*psrc == *pref)								// if digits in order are found
+				*pdest++ = *pref;							// store in numerical value in order
+		}
+	}
 
-	return strdup(rnum_str);
+	return strdup(str_out_tmp);								// return result
 }
 
 
