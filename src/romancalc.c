@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#define TSTR_LEN 100
 
 char *rdigits="IVXLCDM";	//roman numerals in order
 
@@ -23,6 +24,16 @@ void  rnum_str_free(char* roman_numeral_str){
 	free (roman_numeral_str);
 }
 
+/*******************************************************
+ * rnum_check check digits to ensure they are only roman
+ * numerals.
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *      0 input string rnum_str has only roman numerals
+ *     -1 invalid character (non-roman numerals) found
+ *        within the string
+ *******************************************************/
 int   rnum_check(char *rnum_str){						// check roman number string for valid digits
 	char *rslt_ptr;										// result from stirng check
 	if(rnum_str){										// if not give empty roman numer string check
@@ -31,23 +42,35 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 			if(rslt_ptr == NULL)						// if character is not roman numeral (in ref list)
 				break;									// then exit out and report non valid value
 			rnum_str++;									// check next digit;
-		}
-	}
+		}	//while
+	}	// if
 	else
 		return -1;										// was given NULL string
 														// if we did not make it to end of string
 	if(*rnum_str)										// then there was a non-roman numeral characters
 		return -1;										// invalid value
 	return 0;
-}
+} // end of rnum_check
 
-/*************************************
+/*******************************************************
  * rnum_subt_removal
+ * removes subtractions from within roman numerals
  * it is easier to do roman math all 
  * in addition so we remove subtractions
- *************************************/
+ *	     rnum_str  NULL terminated string containg 
+ *                 roman numeral
+ * returns:
+ *       NULL terminated string
+ *     roman        replaced
+ *     numeral      by
+ *       iv         iiii
+ *       ix         viii
+ *       xl         xxxx
+ *       xc         lxxxx
+ *       cd         cccc
+ *       cm         dcccc
+ *******************************************************/
 char *rnum_subt_removal(char *rnum_str){
-#define TSTR_LEN 100
 	char * ch_rslt;
 	char tstr[TSTR_LEN];
 	char tmp_str_cmp[3];								// store next 2 chars from input string
@@ -95,7 +118,24 @@ char *rnum_subt_removal(char *rnum_str){
 	return NULL;
 }
 
+/*******************************************************
+ * rnum_check check digits to ensure they are only roman
+ * numerals.
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *       null terminated string properly order by value
+ *******************************************************/
 char *rnum_digit_group(char *rnum_str){
+	char * ch_rslt;
+	char tstr[TSTR_LEN];								// temp storage while grouping/sorting digits
+	char tmp_str_cmp[3];								// store next 2 chars from input string
+	char *cptr_dest = tstr;								// point to destination of next chunchk
+
+	memset(tstr, 0, TSTR_LEN);							// init tstr null
+	memset(tmp_str_cmp,0,3);							//
+	
+
 	return strdup(rnum_str);
 }
 
