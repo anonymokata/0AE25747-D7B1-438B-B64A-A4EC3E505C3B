@@ -29,6 +29,6 @@ void  rnum_str_clear(char* roman_numeral_str);
 void  rnum_str_free(char* roman_numeral_str);
 int   rnum_check(char *rnum_str);						// check roman number string for valid digits
 char *rnum_subt_removal(char *rnum_str);
-
+char *rnum_digit_group(char *rnum_str);
 #endif
 

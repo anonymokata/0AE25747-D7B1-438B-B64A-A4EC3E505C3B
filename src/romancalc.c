@@ -35,7 +35,6 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 	}
 	else
 		return -1;										// was given NULL string
-	
 														// if we did not make it to end of string
 	if(*rnum_str)										// then there was a non-roman numeral characters
 		return -1;										// invalid value
@@ -94,6 +93,10 @@ char *rnum_subt_removal(char *rnum_str){
 			return rnum_str;
 	}
 	return NULL;
+}
+
+char *rnum_digit_group(char *rnum_str){
+	return strdup(rnum_str);
 }
 
 
