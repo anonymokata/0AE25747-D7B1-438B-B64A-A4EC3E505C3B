@@ -130,7 +130,6 @@ int   rnum_numeral_len_check(char *rnum_str){
 	return rslt_tst;										// report error
 }
 
-
 /*******************************************************
  * rnum_numeral_validity_check 
  * check fully that a value input into the routines is

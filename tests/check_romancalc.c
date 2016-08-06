@@ -250,7 +250,7 @@ romancalc_suite_input_numerals_validation(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Check Validity of User Input Roman Numeral");
 	
 	/* Digits test case */
-	TCase *tc_user_input_numeral_validity = tcase_create ("Check Validity of User Input Roman Numerals\n");
+	TCase *tc_user_input_numeral_validity = tcase_create ("\nCheck Validity of User Input Roman Numerals\n");
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral);
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_length_error);
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral_error);
