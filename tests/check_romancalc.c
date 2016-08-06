@@ -193,7 +193,7 @@ romancalc_suite_digit_grouping_check(void)
 	return s;
 }
 
-START_TEST (test_numeral_reduction	)
+START_TEST (test_numeral_reduction_multi_to_higher_digits	)
 {
 	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("DD"),"M");
 	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("CCCCC"),"D");
@@ -213,14 +213,14 @@ START_TEST (test_numeral_reduction	)
 END_TEST
 
 Suite *
-romancalc_suite_digit_reduciton_check(void)
+romancalc_suite_digit_reduciton_multi_to_higher_check(void)
 {
 	Suite *s = suite_create ("\nRoman Calc Suite Digit group reduction");
 	
 	/* Digits test case */
-	TCase *tc_digit_reduce = tcase_create ("Test Roman Multi Digit Value to Higher Value/n");
-	tcase_add_test (tc_digit_reduce, test_numeral_reduction);
-	suite_add_tcase (s, tc_digit_reduce);
+	TCase *tc_digit_reduce_multi_to_higher_digits = tcase_create ("Test Roman Multi Digit Value to Higher Value/n");
+	tcase_add_test (tc_digit_reduce_multi_to_higher_digits, test_numeral_reduction_multi_to_higher_digits);
+	suite_add_tcase (s, tc_digit_reduce_multi_to_higher_digits);
 	
 	return s;
 }
@@ -259,7 +259,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_check());
   srunner_add_suite(sr, romancalc_suite_subtract_simplification_check());
   srunner_add_suite(sr, romancalc_suite_digit_grouping_check());
-  srunner_add_suite(sr, romancalc_suite_digit_reduciton_check());
+  srunner_add_suite(sr, romancalc_suite_digit_reduciton_multi_to_higher_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_improper_to_proper_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
