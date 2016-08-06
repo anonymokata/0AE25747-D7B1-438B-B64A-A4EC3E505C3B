@@ -299,9 +299,14 @@ char *rnum_reduce_improper_to_proper_digits(char *rnum_str){
 }
 
 char *rnum_reduce_fully(char *rnum_str){
+	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
 	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
+	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	memset(str_out_tmp, 0, TSTR_LEN);						// init tstr null
+	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// copy into working storage
+
 	(void)strcpy(str_out_tmp, "IV");						// faked output validate the test routine
+	
 	return strdup(str_out_tmp);
 }
 
