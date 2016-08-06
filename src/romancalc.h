@@ -22,7 +22,7 @@
 //********************************************/
 
 
-#define MAX_STR_LEN_ROMAN_NUM (75 + 1)
+#define MAX_STR_LEN_ROMAN_NUM (15 + 1)
 void roman_numeral_str_clear(char* roman_numeral_str);
 char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);

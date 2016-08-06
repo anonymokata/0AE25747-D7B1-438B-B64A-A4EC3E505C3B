@@ -102,9 +102,20 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
  *      0 input string rnum_str has only roman numerals
  *     -1 invalid character (non-roman numerals) found
  *        within the string
+ *     -2 string too long, software criteria max
+ *        value input is MMMDCCCLXXXVIII
  *******************************************************/
 int   rnum_numeral_validity_check(char *rnum_str){
-	return 0;
+	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
+	int  rslt_tst;											// result of test
+	
+	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
+	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// copy into working storage
+
+	rslt_tst = 0;											// initialize test resutl to pass
+	
+	
+	return rslt_tst;
 }
 
 
