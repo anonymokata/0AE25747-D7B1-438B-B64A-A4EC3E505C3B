@@ -21,4 +21,4 @@ check_romancalc.c:158:P:Test Subtractionan removal/n:test_roman_subtraction_remo
 check_romancalc.c:179:P:Test Roman Digit Grouping/n:test_roman_digit_grouping:0: Passed
 check_romancalc.c:211:P:Test Roman Multi Digit Value to Higher Value/n:test_numeral_reduction_multi_to_higher_digits:0: Passed
 check_romancalc.c:236:P:Test Roman Improper to Proper Digits/n:test_numeral_reduction_improper_to_proper:0: Passed
-check_romancalc.c:256:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral/n:test_numeral_reduction_fully:0: Passed
+check_romancalc.c:292:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral/n:test_numeral_reduction_fully:0: Passed

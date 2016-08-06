@@ -298,26 +298,40 @@ char *rnum_reduce_improper_to_proper_digits(char *rnum_str){
 	return strdup(str_out_tmp);								// return result
 }
 
+/*******************************************************
+ * rnum_reduce_fully
+ * reduce fully the post-add answer into a properly
+ * formatted roman numeral readable answer
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *       null terminated string properly order by value
+ *******************************************************/
+
 char *rnum_reduce_fully(char *rnum_str){
 	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
-	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
 	char *ptr_mid_out_str_1;								// mid-stage output string
 	char *ptr_mid_out_str_2;								// mid-stage output string
+	char *ptr_mid_out_str_3;								// mid-stage output string
 	
 	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
-	memset(str_out_tmp, 0, TSTR_LEN);						// init tstr null
 	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// copy into working storage
 	ptr_mid_out_str_1 = NULL;								// init ptrs
 	ptr_mid_out_str_2 = NULL;								// init ptrs
-
-	ptr_mid_out_str_1 = str_in_tmp;							// TEST LINE test input of routine values
-															// using proper input pointer
+	ptr_mid_out_str_3 = NULL;								// init ptrs
 	
+	
+	ptr_mid_out_str_1 = rnum_digit_group(str_in_tmp);		// make sure digits
+	
+															// Multi-ddigit reduction of
+	ptr_mid_out_str_2 = rnum_reduce_multi_to_higher_digits(ptr_mid_out_str_1);
 	
 															// improper to proper test running first
-	ptr_mid_out_str_2 = rnum_reduce_improper_to_proper_digits(ptr_mid_out_str_1);
+	ptr_mid_out_str_3 = rnum_reduce_improper_to_proper_digits(ptr_mid_out_str_2);
 	
-	return ptr_mid_out_str_2;								// return output
+	free(ptr_mid_out_str_1);								// avoid memory leaks of left over memory
+	free(ptr_mid_out_str_2);								// avoid memory leaks of left over memory
+	return ptr_mid_out_str_3;								// return output
 }
 
 

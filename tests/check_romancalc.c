@@ -253,7 +253,43 @@ romancalc_suite_digit_reduction_improper_to_proper_check(void)
 
 START_TEST (test_numeral_reduction_fully	)
 {
+	// this should pass ALL Previously defined tests
+	// include tests from "romancalc_suite_digit_grouping_check"
+	ck_assert_str_eq (rnum_reduce_fully ("MDCLXVI"),"MDCLXVI");
+	ck_assert_str_eq (rnum_reduce_fully ("IVXLCDM"),"MDCLXVI");
+	ck_assert_str_eq (rnum_reduce_fully ("IDXLCVM"),"MDCLXVI");
+	ck_assert_str_eq (rnum_reduce_fully ("IVXLCDMIVXLCDM"),"MMMCCCXXXII");
+
+	// this should pass ALL Previously defined tests
+	// include tests from "romancalc_suite_digit_reduciton_multi_to_higher_check"
+	ck_assert_str_eq (rnum_reduce_fully ("DD"),"M");
+	ck_assert_str_eq (rnum_reduce_fully ("CCCCC"),"D");
+	ck_assert_str_eq (rnum_reduce_fully ("CCCCCCCCCC"),"M");
+	ck_assert_str_eq (rnum_reduce_fully ("LL"),"C");
+	ck_assert_str_eq (rnum_reduce_fully ("XXXXX"),"L");
+	ck_assert_str_eq (rnum_reduce_fully ("XXXXXXXXXX"),"C");
+	ck_assert_str_eq (rnum_reduce_fully ("XXXXXXXXXXXXXXX"),"CL");
+	ck_assert_str_eq (rnum_reduce_fully ("XXXXXXXXXXXXXXXXXXXX"),"CC");
+	ck_assert_str_eq (rnum_reduce_fully ("VV"),"X");
+	ck_assert_str_eq (rnum_reduce_fully ("IIIII"),"V");
+	ck_assert_str_eq (rnum_reduce_fully ("VIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce_fully ("IIIIIIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce_fully ("IIIIIIIIIIIIIII"),"XV");
+	ck_assert_str_eq (rnum_reduce_fully ("IIIIIIIIIIIIIIIIIIII"),"XX");
+	
+	// this should pass ALL Previously defined tests
+	// include tests from "romancalc_suite_digit_reduction_improper_to_proper_check"
 	ck_assert_str_eq (rnum_reduce_fully ("IIII") ,"IV"); //   4
+	ck_assert_str_eq (rnum_reduce_fully ("VIIII"),"IX"); //   9
+	ck_assert_str_eq (rnum_reduce_fully ("XXXX") ,"XL"); //  40
+	ck_assert_str_eq (rnum_reduce_fully ("LXXXX"),"XC"); //  90
+	ck_assert_str_eq (rnum_reduce_fully ("CCCC") ,"CD"); // 400
+	ck_assert_str_eq (rnum_reduce_fully ("DCCCC"),"CM"); // 900
+
+	// test ing new combinations
+	ck_assert_str_eq (rnum_reduce_fully ("MDCCCCLXXXXIIII"),"MCMXCIV"); // 1994
+	ck_assert_str_eq (rnum_reduce_fully ("MCCCCCCCCCXXXXXXXXXIIIIIIIII"),\
+					  "MCMXCIX"); // 1999
 }
 END_TEST
 
