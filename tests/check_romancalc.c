@@ -306,6 +306,25 @@ romancalc_suite_digit_reduction_full_check(void)
 	return s;
 }
 
+START_TEST (test_validity_user_input_numeral	)
+{
+	ck_assert_int_eq (rnum_numeral_validity_check ("MDCLXVI"),0);
+}
+END_TEST
+
+Suite *
+romancalc_suite_input_numerals_validation(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Check Validity of User Input Roman Numeral");
+	
+	/* Digits test case */
+	TCase *tc_user_input_numeral_validity = tcase_create ("Check Validity of User Input Roman Numerals\n");
+	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral);
+	suite_add_tcase (s, tc_user_input_numeral_validity);
+	
+	return s;
+}
+
 int
 main (void)
 {
@@ -318,6 +337,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_reduciton_multi_to_higher_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_improper_to_proper_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_full_check());
+  srunner_add_suite(sr, romancalc_suite_input_numerals_validation());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);

@@ -92,6 +92,23 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 } // end of rnum_check
 
 /*******************************************************
+ * rnum_numeral_validity_check 
+ * check fully that a value input into the routines is
+ * a valid roman numeral
+ *
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *      0 input string rnum_str has only roman numerals
+ *     -1 invalid character (non-roman numerals) found
+ *        within the string
+ *******************************************************/
+int   rnum_numeral_validity_check(char *rnum_str){
+	return 0;
+}
+
+
+/*******************************************************
  * rnum_subt_removal
  * removes subtractions from within roman numerals
  * it is easier to do roman math all 

@@ -28,6 +28,7 @@ char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);
 void  rnum_str_free(char* roman_numeral_str);
 int   rnum_check(char *rnum_str);						// check roman number string for valid digits
+int   rnum_numeral_validity_check(char *rnum_str);
 char *rnum_subt_removal(char *rnum_str);
 char *rnum_digit_group(char *rnum_str);
 char *rnum_reduce_multi_to_higher_digits(char *rnum_str);
