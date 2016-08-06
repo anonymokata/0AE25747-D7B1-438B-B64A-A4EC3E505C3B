@@ -19,8 +19,11 @@
 //* Max Input  string width 15+1 (null terminated)
 //********************************************/
 
-
-#define MAX_STR_LEN_ROMAN_NUM (15 + 1)
+// maximum input length 1024 roman numeral digits
+// allows the the user to be
+//#define MAX_STR_LEN_ROMAN_NUM (1024)
+// allows me to test software within reason
+#define MAX_STR_LEN_ROMAN_NUM (16)
 void roman_numeral_str_clear(char* roman_numeral_str);
 char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);

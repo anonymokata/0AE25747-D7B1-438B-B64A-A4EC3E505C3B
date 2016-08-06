@@ -10,11 +10,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-// maximum input length 1024 roman numeral digits
-// allows the the user to be
-#define MAX_ROMAN_NUMERAL_INPUT_LEN 1024
 // allows for expansion and contraction of roman numerals
-#define TSTR_LEN (MAX_ROMAN_NUMERAL_INPUT_LEN * 5)
+#define TSTR_LEN (MAX_STR_LEN_ROMAN_NUM * 16)
 
 // single digit numerals
 #define RN_1000 "M"
@@ -57,10 +54,10 @@
 char *rdigits=RN_1000 RN_500 RN_100 RN_50 RN_10 RN_5 RN_1;	// roman numerals in order
 
 void rnum_str_clear(char* roman_numeral_str){
-	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM);
+	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM+1); // null terminated
 }
 char *rnum_str_create(void){
-	char *str = (char*)malloc(MAX_STR_LEN_ROMAN_NUM);
+	char *str = (char*)malloc(MAX_STR_LEN_ROMAN_NUM+1); // null terminated
 	rnum_str_clear(str);
 	return str;
 }
@@ -114,12 +111,17 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
 	int  rslt_tst;											// result of test
 	
-	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
-	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// copy into working storage
+	rslt_tst = -1;											//
 
-	rslt_tst = 0;											// initialize test resutl to pass
-	
-	rslt_tst = rnum_check(str_in_tmp);						// ensure only valid roman numerals are present
+	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
+	strncpy(str_in_tmp, rnum_str, MAX_STR_LEN_ROMAN_NUM+1);	// copy into working storage plus null
+	if(str_in_tmp[MAX_STR_LEN_ROMAN_NUM+1] == 0){			// if null terminate is valid
+															// then input sting length is good
+		rslt_tst = rnum_check(str_in_tmp);					// ensure only valid roman numerals are present
+		if(rslt_tst == 0){									// no error then next validity check
+			
+		}
+	}
 
 	return rslt_tst;
 }
