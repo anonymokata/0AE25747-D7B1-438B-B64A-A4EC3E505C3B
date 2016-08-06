@@ -114,6 +114,7 @@ int   rnum_numeral_validity_check(char *rnum_str){
 
 	rslt_tst = 0;											// initialize test resutl to pass
 	
+	rslt_tst = rnum_check(str_in_tmp);						// ensure only valid roman numerals are present
 	
 	return rslt_tst;
 }

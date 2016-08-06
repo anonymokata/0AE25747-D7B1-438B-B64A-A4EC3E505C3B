@@ -107,13 +107,13 @@ romancalc_suite (void)
 
 START_TEST (test_roman_digit_check_string	)
 {
-	ck_assert_int_eq (rnum_check ("III"),    0);	// check lower case
-	ck_assert_int_eq (rnum_check ("IV"),     0);	// check upper case
-	ck_assert_int_eq (rnum_check ("XXXVII"), 0);	// check lower case
-	ck_assert_int_eq (rnum_check ("LLL"), 0);	// check upper case
-	ck_assert_int_eq (rnum_check ("MDCLXVI"), 0);	// check lower case
-	ck_assert_int_eq (rnum_check ("MMMDCCCLXXXVIII"), 0);	// check upper case
-	ck_assert_int_eq (rnum_check ("MMMMMMMDCCLXXVI"), 0);	// check lower case
+	ck_assert_int_eq (rnum_check ("III"),    0);
+	ck_assert_int_eq (rnum_check ("IV"),     0);
+	ck_assert_int_eq (rnum_check ("XXXVII"), 0);
+	ck_assert_int_eq (rnum_check ("LLL"), 0);
+	ck_assert_int_eq (rnum_check ("MDCLXVI"), 0);
+	ck_assert_int_eq (rnum_check ("MMMDCCCLXXXVIII"), 0);
+	ck_assert_int_eq (rnum_check ("MMMMMMMDCCLXXVI"), 0);
 }
 END_TEST
 
@@ -308,7 +308,30 @@ romancalc_suite_digit_reduction_full_check(void)
 
 START_TEST (test_validity_user_input_numeral	)
 {
+	// should pass all previous checks
 	ck_assert_int_eq (rnum_numeral_validity_check ("MDCLXVI"),0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("III"),    0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("IV"),     0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("XXXVII"), 0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("LLL"), 0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("MDCLXVI"), 0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("MMMDCCCLXXXVIII"), 0);
+	ck_assert_int_eq (rnum_numeral_validity_check ("MMMMMMMDCCLXXVI"), 0);
+}
+END_TEST
+
+START_TEST (test_validity_user_input_numeral_error	)
+{
+	// should fail all previous checks
+	ck_assert_int_eq (rnum_numeral_validity_check ("qIII"),		-1);		// bad char at begin
+	ck_assert_int_eq (rnum_numeral_validity_check ("IqII"),		-1);		// bad char at mid
+	ck_assert_int_eq (rnum_numeral_validity_check ("IIIq"),		-1);		// bad char at end
+	ck_assert_int_eq (rnum_numeral_validity_check ("IqV"),		-1);		// bad char
+	ck_assert_int_eq (rnum_numeral_validity_check ("XXqXVII"),	-1);		// bad char
+	ck_assert_int_eq (rnum_numeral_validity_check ("LeLL"),		-1);		// bad char
+	ck_assert_int_eq (rnum_numeral_validity_check ("MDrCLXVI"),	-1);		// bad char
+	ck_assert_int_eq (rnum_numeral_validity_check ("MMMDChCCLaXXXVIII"), -1);		//bad char
+	ck_assert_int_eq (rnum_numeral_validity_check ("MMhMMsMMMxDCCLXXVI"), -1);	// bad char
 }
 END_TEST
 
@@ -320,6 +343,7 @@ romancalc_suite_input_numerals_validation(void)
 	/* Digits test case */
 	TCase *tc_user_input_numeral_validity = tcase_create ("Check Validity of User Input Roman Numerals\n");
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral);
+	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral_error);
 	suite_add_tcase (s, tc_user_input_numeral_validity);
 	
 	return s;
