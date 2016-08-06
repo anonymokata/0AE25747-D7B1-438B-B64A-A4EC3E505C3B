@@ -22,7 +22,7 @@
 // maximum input length 1024 roman numeral digits
 // allows the the user to be
 #define MAX_STR_LEN_ROMAN_NUM (1024)
-typedef enum rnum_err_enum {
+typedef enum {
 	RNUM_ERR_NONE				= 0,
 	RNUM_ERR_GENERAL			= -1,		// temp lump in while developing,
 	RNUM_ERR_INPUT_NULL			= -2,		// was given null rather than valid string
@@ -31,7 +31,7 @@ typedef enum rnum_err_enum {
 	RNUM_ERR_INPUT_NON_NUMERAL	= -5,		// invalid character withing numeral string
 	RNUM_ERR_INVALID_NUMERAL_FORMAT = -6,	// good numerals, bad order for proper roman numeral
 	RNUM_ERR_ = -999
-};
+} rnum_err_enum ;
 void roman_numeral_str_clear(char* roman_numeral_str);
 char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);
