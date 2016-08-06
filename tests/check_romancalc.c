@@ -260,7 +260,27 @@ romancalc_suite_input_numerals_validation(void)
 	return s;
 }
 
-// MARK: test_roman_subtraction_removal
+// MARK: romancalc_suite_input_split_check
+START_TEST (test_input_split )
+{
+//	ck_assert_str_eq (rnum_input_split ("V"),		"IIII" );	// 4
+}
+END_TEST
+
+Suite *
+romancalc_suite_input_split_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Input Split Check");
+	
+	/* Digits test case */
+	TCase *tc_input_split = tcase_create ("\nTest Input Split\n");
+	tcase_add_test (tc_input_split, test_input_split);
+	suite_add_tcase (s, tc_input_split);
+	
+	return s;
+}
+
+// MARK: romancalc_suite_subtract_simplification_check
 START_TEST (test_roman_subtraction_removal	)
 {
 	ck_assert_str_eq (rnum_subt_removal ("IV"),		"IIII" );	// 4
@@ -440,6 +460,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_reduction_full_check());
   srunner_add_suite(sr, romancalc_suite_input_numerals_len_check());
   srunner_add_suite(sr, romancalc_suite_input_numerals_validation());
+  srunner_add_suite(sr, romancalc_suite_input_split_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);

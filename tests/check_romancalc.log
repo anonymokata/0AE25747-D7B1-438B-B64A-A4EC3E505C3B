@@ -16,21 +16,43 @@ Roman Calc Suite Testing Full Post-Add Reduction to Proper Roman Numeral check
 Roman Calc Suite Check Input Length Check
  
 Roman Calc Suite Check Validity of User Input Roman Numeral
-100%: Checks: 13, Failures: 0, Errors: 0
-check_romancalc.c:39:P:Digits/n:test_roman_digit_check_individual:0: Passed
-check_romancalc.c:84:P:Digits/n:test_roman_digit_check_individual_error:0: Passed
-check_romancalc.c:116:P:Test for String Errors, Bad Chars/n:test_roman_digit_check_string:0: Passed
-check_romancalc.c:130:P:Test for String Errors, Bad Chars/n:test_roman_digit_check_string_error:0: Passed
-check_romancalc.c:158:P:Test Subtractionan removal/n:test_roman_subtraction_removal:0: Passed
-check_romancalc.c:179:P:Test Roman Digit Grouping/n:test_roman_digit_grouping:0: Passed
-check_romancalc.c:211:P:Test Roman Multi Digit Value to Higher Value/n:test_numeral_reduction_multi_to_higher_digits:0: Passed
-check_romancalc.c:236:P:Test Roman Improper to Proper Digits/n:test_numeral_reduction_improper_to_proper:0: Passed
-check_romancalc.c:292:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral/n:test_numeral_reduction_fully:0: Passed
-check_romancalc.c:314:P:Check Lentgh
+ 
+Roman Calc Suite Input Split Check
+100%: Checks: 16, Failures: 0, Errors: 0
+check_romancalc.c:81:P:Digits
+:test_roman_digit_check_individual:0: Passed
+check_romancalc.c:126:P:Digits
+:test_roman_digit_check_individual_error:0: Passed
+check_romancalc.c:159:P:Test for String Errors, Bad Chars
+:test_roman_digit_check_string:0: Passed
+check_romancalc.c:173:P:Test for String Errors, Bad Chars
+:test_roman_digit_check_string_error:0: Passed
+check_romancalc.c:294:P:Test Subtractionan removal
+:test_roman_subtraction_removal:0: Passed
+check_romancalc.c:316:P:Test Roman Digit Grouping
+:test_roman_digit_grouping:0: Passed
+check_romancalc.c:349:P:Test Roman Multi Digit Value to Higher Value
+:test_numeral_reduction_multi_to_higher_digits:0: Passed
+check_romancalc.c:375:P:Test Roman Improper to Proper Digits
+:test_numeral_reduction_improper_to_proper:0: Passed
+check_romancalc.c:431:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral
+:test_numeral_reduction_fully:0: Passed
+check_romancalc.c:30:P:Check Lentgh
 :test_validity_input_len:0: Passed
-check_romancalc.c:323:P:Check Lentgh Error
+check_romancalc.c:43:P:Check Length Error
 :test_validity_input_len_error:0: Passed
-check_romancalc.c:355:P:Check Validity of User Input Roman Numerals
+check_romancalc.c:206:P:
+Check Validity of User Input Roman Numerals
 :test_validity_user_input_numeral:0: Passed
-check_romancalc.c:370:P:Check Validity of User Input Roman Numerals
+check_romancalc.c:213:P:
+Check Validity of User Input Roman Numerals
+:test_validity_user_input_length_error:0: Passed
+check_romancalc.c:228:P:
+Check Validity of User Input Roman Numerals
 :test_validity_user_input_numeral_error:0: Passed
+check_romancalc.c:243:P:
+Check Validity of User Input Roman Numerals
+:test_validity_user_input_improper_error:0: Passed
+check_romancalc.c:264:P:
+Test Input Split
+:test_input_split:0: Passed
