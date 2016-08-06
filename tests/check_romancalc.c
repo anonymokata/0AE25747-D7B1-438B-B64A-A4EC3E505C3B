@@ -6,19 +6,18 @@
 #include <ctype.h>
 #include "../src/romancalc.h"
 
-//char *tst_roman_numeral_str;
-char *tst_str;
+rn_pair_strct_type * ptr_tst_pair;
 
 void
 setup (void)
 {
-	tst_str = rnum_str_create ();
+	ptr_tst_pair = rnum_pair_create();
 }
 
 void
 teardown (void)
 {
-	rnum_str_free (tst_str);
+	rnum_str_free (ptr_tst_pair);
 }
 
 // MARK: input length validation
@@ -263,7 +262,12 @@ romancalc_suite_input_numerals_validation(void)
 // MARK: romancalc_suite_input_split_check
 START_TEST (test_input_split )
 {
-//	ck_assert_str_eq (rnum_input_split ("V"),		"IIII" );	// 4
+	ptr_tst_pair = rnum_input_split ("V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	teardown();
 }
 END_TEST
 
@@ -273,7 +277,7 @@ romancalc_suite_input_split_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Input Split Check");
 	
 	/* Digits test case */
-	TCase *tc_input_split = tcase_create ("\nTest Input Split\n");
+	TCase *tc_input_split = tcase_create ("\nCheck Input Splitroutine\n");
 	tcase_add_test (tc_input_split, test_input_split);
 	suite_add_tcase (s, tc_input_split);
 	

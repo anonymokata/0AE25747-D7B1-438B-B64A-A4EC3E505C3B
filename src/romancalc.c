@@ -94,7 +94,7 @@ void  rnum_str_free(rn_pair_strct_type * rnum_pair){
 		if((*rnum_pair).num_str_2)
 			free((*rnum_pair).num_str_2);
 		free (rnum_pair);
-}
+	}
 }
 
 /*******************************************************
@@ -197,12 +197,52 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	return rslt_tst;
 }
 
+/*******************************************************
+ * rnum_input_split
+ *  splits math equation into 2 roman numerals with error
+ *  error if necessary
+ * input:
+ *	     rn_exp_str  NULL terminated string containg
+ *                 roman numeral
+ * returns:
+ *       rn_pair_strct_type
+ *
+ * typedef struct {
+ *   char *num_str_1;
+ *   char *num_str_2;
+ *   int err;
+ *  } rn_pair_strct_type;
+ * input examples
+ * Input      num_str_1   num_str_2    err
+ *  V+V          V          V        RNUM_ERR_NONE
+ *  V+           V          V        RNUM_ERR_NONE
+ *  +V           V         NULL      RNUM_ERR_NONE
+ *   V           V         NULL      RNUM_ERR_NONE
+ *  ""          NULL       NULL      RNUM_ERR_INPUT_LEN_ZERO
+ * NULL         NULL       NULL      RNUM_ERR_INPUT_NULL
+ * (string      NULL       NULL      RNUM_ERR_INPUT_LEN_EXCEED
+ * too long)
+ * (badly       NULL       NULL      RNUM_ERR_INVALID_NUMERAL_FORMAT
+ * formatted number)
+ * (bad chars   NULL       NULL      RNUM_ERR_INPUT_NON_NUMERAL
+ * in number)
+
+ *******************************************************/
+rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
+	rn_pair_strct_type *rn_pair = rnum_pair_create();
+
+	// initialize values
+	(*rn_pair).num_str_1	= strdup(rn_exp_str);
+
+	return rn_pair;						// return value
+}
 
 /*******************************************************
  * rnum_subt_removal
  * removes subtractions from within roman numerals
  * it is easier to do roman math all 
  * in addition so we remove subtractions
+ * input:
  *	     rnum_str  NULL terminated string containg 
  *                 roman numeral
  * returns:
