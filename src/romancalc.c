@@ -53,6 +53,21 @@
 
 char *rdigits=RN_1000 RN_500 RN_100 RN_50 RN_10 RN_5 RN_1;	// roman numerals in order
 
+
+// returnable error for user access
+static int rn_err = RNUM_ERR_NONE;							// initialize error
+
+void rnum_error_clear(void){
+	rn_err = RNUM_ERR_NONE;
+}
+
+int rnum_error_get_last_clear(void){
+	int lcl_err;
+	lcl_err = rn_err;										// temp store so we can clear it
+	rnum_error_clear();										// clear up the error
+	return lcl_err;
+}
+
 void rnum_str_clear(char* roman_numeral_str){
 	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM+1); // null terminated
 }
@@ -111,6 +126,7 @@ int   rnum_numeral_len_check(char *rnum_str){
 		}
 	}
 	
+	rn_err = rslt_tst;										// store any error that may have occurred
 	return rslt_tst;										// report error
 }
 
@@ -135,15 +151,16 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	char *ptr_mid_out_str_1;								// mid-stage output string
 	char *ptr_mid_out_str_2;								// mid-stage output string
 	int  rslt_tst;											// result of test
-	int  rslt_tmp;											// temporary result
 	
 	rslt_tst = RNUM_ERR_NONE;								// assume good input
 	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	
 	rslt_tst = rnum_numeral_len_check(rnum_str);			// first check length
+	
 	if( rslt_tst == RNUM_ERR_NONE){							// if valid length
 		strcpy(str_in_tmp, rnum_str);						// make working copy
 		rslt_tst = rnum_check(str_in_tmp);					// ensure only valid roman numerals are present
+	
 		if(rslt_tst == RNUM_ERR_NONE){						// no error then next validity check
 			for(psrc = str_in_tmp; *psrc; psrc++)			//  process roman numerals as caps
 				*psrc = toupper(*psrc);						// capitalize it for processing
@@ -160,6 +177,7 @@ int   rnum_numeral_validity_check(char *rnum_str){
 		}
 	}
 
+	rn_err = rslt_tst;										// store any error that may have occurred
 	return rslt_tst;
 }
 

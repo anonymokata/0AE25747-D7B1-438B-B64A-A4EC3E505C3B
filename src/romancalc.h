@@ -32,6 +32,9 @@ typedef enum {
 	RNUM_ERR_INVALID_NUMERAL_FORMAT = -6,	// good numerals, bad order for proper roman numeral
 	RNUM_ERR_ = -999
 } rnum_err_enum ;
+void rnum_error_clear(void);
+int  rnum_error_get_last(void);
+
 void roman_numeral_str_clear(char* roman_numeral_str);
 char *rnum_str_create(void);
 void  rnum_str_clear(char* roman_numeral_str);
