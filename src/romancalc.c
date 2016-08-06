@@ -309,9 +309,13 @@ char *rnum_reduce_fully(char *rnum_str){
 	strncpy(str_in_tmp, rnum_str, TSTR_LEN);				// copy into working storage
 	ptr_mid_out_str_1 = NULL;								// init ptrs
 	ptr_mid_out_str_2 = NULL;								// init ptrs
+
+	ptr_mid_out_str_1 = str_in_tmp;							// TEST LINE test input of routine values
+															// using proper input pointer
+	
 	
 															// improper to proper test running first
-	ptr_mid_out_str_2 = rnum_reduce_improper_to_proper_digits(str_in_tmp);
+	ptr_mid_out_str_2 = rnum_reduce_improper_to_proper_digits(ptr_mid_out_str_1);
 	
 	return ptr_mid_out_str_2;								// return output
 }
