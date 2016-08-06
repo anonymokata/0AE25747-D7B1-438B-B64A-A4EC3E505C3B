@@ -250,6 +250,26 @@ romancalc_suite_digit_reduction_improper_to_proper_check(void)
 	return s;
 }
 
+
+START_TEST (test_numeral_reduction_improper_to_proper	)
+{
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("IIII") ,"IV"); //   4
+}
+END_TEST
+
+Suite *
+romancalc_suite_digit_reduction_full_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Testing Full Post-Add Reduction to Proper Roman Numeral check");
+	
+	/* Digits test case */
+	TCase *tc_digit_reduce_fully = tcase_create ("Test Roman Post-Add Full Reduction to Proper Roman Numeral/n");
+	tcase_add_test (tc_digit_reduce_fully, test_numeral_reduction_fully);
+	suite_add_tcase (s, tc_digit_reduce_fully);
+	
+	return s;
+}
+
 int
 main (void)
 {
@@ -261,6 +281,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_grouping_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduciton_multi_to_higher_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_improper_to_proper_check());
+  srunner_add_suite(sr, romancalc_suite_digit_reduction_full_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);
