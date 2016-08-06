@@ -195,20 +195,20 @@ romancalc_suite_digit_grouping_check(void)
 
 START_TEST (test_numeral_reduction	)
 {
-	ck_assert_str_eq (rnum_reduce ("DD"),"M");
-	ck_assert_str_eq (rnum_reduce ("CCCCC"),"D");
-	ck_assert_str_eq (rnum_reduce ("CCCCCCCCCC"),"M");
-	ck_assert_str_eq (rnum_reduce ("LL"),"C");
-	ck_assert_str_eq (rnum_reduce ("XXXXX"),"L");
-	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXX"),"C");
-	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXXXXXXX"),"CL");
-	ck_assert_str_eq (rnum_reduce ("XXXXXXXXXXXXXXXXXXXX"),"CC");
-	ck_assert_str_eq (rnum_reduce ("VV"),"X");
-	ck_assert_str_eq (rnum_reduce ("IIIII"),"V");
-	ck_assert_str_eq (rnum_reduce ("VIIIII"),"X");
-	ck_assert_str_eq (rnum_reduce ("IIIIIIIIII"),"X");
-	ck_assert_str_eq (rnum_reduce ("IIIIIIIIIIIIIII"),"XV");
-	ck_assert_str_eq (rnum_reduce ("IIIIIIIIIIIIIIIIIIII"),"XX");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("DD"),"M");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("CCCCC"),"D");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("CCCCCCCCCC"),"M");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("LL"),"C");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("XXXXX"),"L");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("XXXXXXXXXX"),"C");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("XXXXXXXXXXXXXXX"),"CL");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("XXXXXXXXXXXXXXXXXXXX"),"CC");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("VV"),"X");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("IIIII"),"V");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("VIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("IIIIIIIIII"),"X");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("IIIIIIIIIIIIIII"),"XV");
+	ck_assert_str_eq (rnum_reduce_multi_to_higher_digits ("IIIIIIIIIIIIIIIIIIII"),"XX");
 }
 END_TEST
 
