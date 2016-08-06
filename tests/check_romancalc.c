@@ -231,16 +231,16 @@ END_TEST
 
 START_TEST (test_validity_user_input_improper_error	)
 {
-	ck_assert_str_eq (rnum_numeral_validity_check ("DD"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("CCCC"),	RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("CCCCCCCCCC"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("LL"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("XXXX"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("XXXXXXXXXX"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("VV"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("IIII"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("VIIII"),	RNUM_ERR_INVALID_NUMERAL_FORMAT);
-	ck_assert_str_eq (rnum_numeral_validity_check ("IIIIIIIIII"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("DD"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("CCCC"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("CCCCCCCCCC"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("LL"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("XXXX"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("XXXXXXXXXX"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("VV"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("IIII"),		RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("VIIII"),	RNUM_ERR_INVALID_NUMERAL_FORMAT);
+	ck_assert_int_eq (rnum_numeral_validity_check ("IIIIIIIIII"),RNUM_ERR_INVALID_NUMERAL_FORMAT);
 }
 END_TEST
 
