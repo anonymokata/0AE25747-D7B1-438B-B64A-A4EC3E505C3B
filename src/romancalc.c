@@ -9,7 +9,12 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#define TSTR_LEN 100
+
+// maximum input length 1024 roman numeral digits
+// allows the the user to be
+#define MAX_ROMAN_NUMERAL_INPUT_LEN 1024
+// allows for expansion and contraction of roman numerals
+#define TSTR_LEN (MAX_ROMAN_NUMERAL_INPUT_LEN * 5)
 
 // single digit numerals
 #define RN_1000 "M"
@@ -115,7 +120,7 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	rslt_tst = 0;											// initialize test resutl to pass
 	
 	rslt_tst = rnum_check(str_in_tmp);						// ensure only valid roman numerals are present
-	
+
 	return rslt_tst;
 }
 

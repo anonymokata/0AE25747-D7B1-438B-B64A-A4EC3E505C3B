@@ -14,8 +14,6 @@
 //*	D		 500		1
 //*	M		1000		3					*
 //*											*
-//* Max Digit Inputs MMMDCCCLXXXVIII		3888	*
-//* Max Digit Output MMMMMMMDCCLXXVI		7776
 //* (Using defined roman numerals)
 //* Max Output string width 15+1 (null terminated)
 //* Max Input  string width 15+1 (null terminated)
