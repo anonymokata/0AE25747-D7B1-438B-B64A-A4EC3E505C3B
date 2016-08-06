@@ -306,6 +306,42 @@ romancalc_suite_digit_reduction_full_check(void)
 	return s;
 }
 
+START_TEST (test_validity_input_len	)
+{
+	char str_in_tmp[MAX_STR_LEN_ROMAN_NUM + 2];			// check length checking
+	(void)memset(str_in_tmp,    0, sizeof(str_in_tmp));	/// init with null termination
+	(void)memset(str_in_tmp,  'M', MAX_STR_LEN_ROMAN_NUM);	/// init with null termination
+	ck_assert_int_eq (rnum_numeral_len_check (str_in_tmp), 0);
+}
+END_TEST
+
+START_TEST (test_validity_input_len_error	)
+{
+	char str_in_tmp[MAX_STR_LEN_ROMAN_NUM + 2];			// check length checking
+	(void)memset(str_in_tmp,  0, sizeof(str_in_tmp));	/// init with null termination
+	(void)memset(str_in_tmp,  'M', sizeof(str_in_tmp)-1);	/// init with null termination
+	ck_assert_int_eq (rnum_numeral_len_check (str_in_tmp), -1); // too large of input value
+}
+END_TEST
+
+Suite *
+romancalc_suite_input_numerals_len_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Check Input Length Check");
+	
+	/* Digits test case */
+	TCase *tc_user_input_numeral_len_check = tcase_create ("Check Lentgh\n");
+	tcase_add_test (tc_user_input_numeral_len_check, test_validity_input_len);
+	suite_add_tcase (s, tc_user_input_numeral_len_check);
+	
+	/* Digits test case */
+	TCase *tc_user_input_numeral_len_check_err = tcase_create ("Check Lentgh Error\n");
+	tcase_add_test (tc_user_input_numeral_len_check_err, test_validity_input_len_error);
+	suite_add_tcase (s, tc_user_input_numeral_len_check_err);
+	
+	return s;
+}
+
 START_TEST (test_validity_user_input_numeral	)
 {
 	// should pass all previous checks
@@ -361,6 +397,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_digit_reduciton_multi_to_higher_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_improper_to_proper_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduction_full_check());
+  srunner_add_suite(sr, romancalc_suite_input_numerals_len_check());
   srunner_add_suite(sr, romancalc_suite_input_numerals_validation());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);

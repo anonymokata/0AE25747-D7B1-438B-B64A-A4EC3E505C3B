@@ -94,6 +94,29 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 } // end of rnum_check
 
 /*******************************************************
+ * rnum_check check digits to ensure they are only roman
+ * numerals.
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *      0 input string rnum_str has only roman numerals
+ *     -1 either too long or no value or NULL input
+ *******************************************************/
+int   rnum_numeral_len_check(char *rnum_str){
+	int  rslt_tst;											// result of test
+	if(rnum_str != NULL){									// see if given a string at all
+		if(*rnum_str != 0){									// make sure at least 1 char in input
+			if(strlen(rnum_str) <= MAX_STR_LEN_ROMAN_NUM){	// make sure string does not exceed input length
+				return 0;
+			}
+		}
+	}
+	
+	return -1;												// invalid lenght string
+}
+
+
+/*******************************************************
  * rnum_numeral_validity_check 
  * check fully that a value input into the routines is
  * a valid roman numeral
@@ -114,9 +137,10 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	rslt_tst = -1;											//
 
 	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
-	strncpy(str_in_tmp, rnum_str, MAX_STR_LEN_ROMAN_NUM+1);	// copy into working storage plus null
-	if(str_in_tmp[MAX_STR_LEN_ROMAN_NUM+1] == 0){			// if null terminate is valid
+	
+	if(rnum_numeral_len_check == 0){						// if null terminate is valid
 															// then input sting length is good
+		strcpy(str_in_tmp, rnum_str);						// make temperorary copy
 		rslt_tst = rnum_check(str_in_tmp);					// ensure only valid roman numerals are present
 		if(rslt_tst == 0){									// no error then next validity check
 			
