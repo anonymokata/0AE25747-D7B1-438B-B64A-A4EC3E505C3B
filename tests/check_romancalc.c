@@ -218,9 +218,34 @@ romancalc_suite_digit_reduciton_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Digit group reduction");
 	
 	/* Digits test case */
-	TCase *tc_digit_reduce = tcase_create ("Test Roman Digit Grouping/n");
+	TCase *tc_digit_reduce = tcase_create ("Test Roman Multi Digit Value to Higher Value/n");
 	tcase_add_test (tc_digit_reduce, test_numeral_reduction);
 	suite_add_tcase (s, tc_digit_reduce);
+	
+	return s;
+}
+
+START_TEST (test_numeral_reduction_improper_to_proper	)
+{
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("IIII") ,"IV"); //   4
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("VIIII"),"IX"); //   9
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("XXXX") ,"XL"); //  40
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("LXXXX"),"XC"); //  90
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("CCCC") ,"CD"); // 400
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("DCCCC"),"CM"); // 900
+	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("MDCCCCLXXXXIIII"),"MCMXCIV"); // 1994
+}
+END_TEST
+
+Suite *
+romancalc_suite_digit_reduction_improper_to_proper_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Improper to Proper Digits");
+	
+	/* Digits test case */
+	TCase *tc_digit_reduce_improper_to_proper = tcase_create ("Test Roman Improper to Proper Digits/n");
+	tcase_add_test (tc_digit_reduce_improper_to_proper, test_numeral_reduction_improper_to_proper);
+	suite_add_tcase (s, tc_digit_reduce_improper_to_proper);
 	
 	return s;
 }
@@ -235,6 +260,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_subtract_simplification_check());
   srunner_add_suite(sr, romancalc_suite_digit_grouping_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduciton_check());
+  srunner_add_suite(sr, romancalc_suite_digit_reduction_improper_to_proper_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);

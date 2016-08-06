@@ -41,6 +41,13 @@
 #define FOUR_10s  RN_10  RN_10  RN_10  RN_10
 #define FOUR_1s   RN_1   RN_1   RN_1   RN_1
 
+#define IMP_900 RN_500 FOUR_100s
+#define IMP_400 FOUR_100s
+#define IMP_90  RN_50  FOUR_10s
+#define IMP_40  FOUR_10s
+#define IMP_9   RN_5   FOUR_1s
+#define IMP_4   FOUR_1s
+
 
 char *rdigits=RN_1000 RN_500 RN_100 RN_50 RN_10 RN_5 RN_1;	// roman numerals in order
 
@@ -245,5 +252,50 @@ char *rnum_reduce_multi_to_higher_digits(char *rnum_str){
 	return strdup(str_out_tmp);								// return result
 }
 
+/*******************************************************
+ * rnum_reduce_improper_to_proper_digits
+ * reduce improper digits to proper
+ * i.e. IIII to IV, VIIII to IX, XXXX to XL, LXXXX to XC etc
+ * input:
+ *	     rnum_str  NULL terminated string
+ * returns:
+ *       null terminated string properly order by value
+ *******************************************************/
+
+char *rnum_reduce_improper_to_proper_digits(char *rnum_str){
+	char str_out_tmp[TSTR_LEN];								// temp storage while grouping/sorting digits
+	char *psrc;												// input ptr
+	
+	memset(str_out_tmp, 0, TSTR_LEN);						// init tstr null
+	
+	psrc  = rnum_str;										// start at beginning of working input string
+	
+	while(*psrc){										// until end of string
+		if(strncmp(IMP_900, psrc, strlen(IMP_900)) == 0){ // if improper DCCCC
+			psrc += strlen(IMP_900);					// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_900);			// then insert proper CM
+		} else if(strncmp(IMP_400, psrc, strlen(IMP_400)) == 0){ // if CCCC
+			psrc += strlen(IMP_400);					// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_400);			// then insert CD
+		} else if(strncmp(IMP_90, psrc, strlen(IMP_90)) == 0){	// if LXXXX
+			psrc += strlen(IMP_90);						// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_90);			// then insert XC
+		} else if(strncmp(IMP_40, psrc, strlen(IMP_40)) == 0){		// if XXXX
+			psrc += strlen(IMP_40);						// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_40);			// then insert XL
+		} else if(strncmp(IMP_9,psrc,strlen(IMP_9)) == 0){		// if VIIII
+			psrc += strlen(IMP_9);						// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_9);			// then insert IX
+		} else if(strncmp(IMP_4, psrc, strlen(IMP_4)) == 0){		// if IIII
+			psrc += strlen(IMP_4);						// push past the reduced digits
+			(void)strcat(str_out_tmp, RN_4);			// then insert IV
+		} else {										// non-reduced digit
+			(void)strncat(str_out_tmp, psrc, 1);		// store and bump forward
+			psrc++;
+		}
+	}
+	
+	return strdup(str_out_tmp);								// return result
+}
 
 /* end of romancalc.c */
