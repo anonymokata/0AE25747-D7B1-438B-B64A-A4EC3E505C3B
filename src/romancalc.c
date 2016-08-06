@@ -89,8 +89,8 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
 		return -1;										// was given NULL string
 														// if we did not make it to end of string
 	if(*rnum_str)										// then there was a non-roman numeral characters
-		return -1;										// invalid value
-	return 0;
+		return RNUM_ERR_INPUT_NON_NUMERAL;				// invalid value
+	return RNUM_ERR_NONE;
 } // end of rnum_check
 
 /*******************************************************
