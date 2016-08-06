@@ -31,8 +31,8 @@ int   rnum_check(char *rnum_str);						// check roman number string for valid di
 char *rnum_subt_removal(char *rnum_str);
 char *rnum_digit_group(char *rnum_str);
 char *rnum_reduce_multi_to_higher_digits(char *rnum_str);
-
 char *rnum_reduce_improper_to_proper_digits(char *rnum_str);
+char *rnum_reduce_fully(char *rnum_str);
 
 #endif
 
