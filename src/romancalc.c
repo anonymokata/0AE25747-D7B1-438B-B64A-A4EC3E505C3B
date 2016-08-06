@@ -92,12 +92,12 @@ void  rnum_str_free(char* roman_numeral_str){
  *******************************************************/
 int   rnum_check(char *rnum_str){						// check roman number string for valid digits
 	char *rslt_ptr;										// result from stirng check
-		while(*rnum_str){								// check each digit see if valid roman numeral
-			rslt_ptr = strchr(rdigits, toupper(*rnum_str));		// check current character against reference list
-			if(rslt_ptr == NULL)						// if character is not roman numeral (in ref list)
-				break;									// then exit out and report non valid value
-			rnum_str++;									// check next digit;
-		}	//while
+	while(*rnum_str){									// check each digit see if valid roman numeral
+		rslt_ptr = strchr(rdigits, toupper(*rnum_str));		// check current character against reference list
+		if(rslt_ptr == NULL)							// if character is not roman numeral (in ref list)
+			break;										// then exit out and report non valid value
+		rnum_str++;										// check next digit;
+	}	//while
 														// if we did not make it to end of string
 	if(*rnum_str)										// then there was a non-roman numeral characters
 		return RNUM_ERR_INPUT_NON_NUMERAL;				// invalid value
@@ -154,7 +154,7 @@ int   rnum_numeral_validity_check(char *rnum_str){
 	
 	rslt_tst = RNUM_ERR_NONE;								// assume good input
 	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
-	
+
 	rslt_tst = rnum_numeral_len_check(rnum_str);			// first check length
 	
 	if( rslt_tst == RNUM_ERR_NONE){							// if valid length

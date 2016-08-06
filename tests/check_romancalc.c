@@ -134,12 +134,12 @@ romancalc_suite (void)
 	Suite *s = suite_create ("\nRoman Calc Suite");
 	
 	/* Core test case */
-	TCase *tc_core = tcase_create ("Core/n");
+	TCase *tc_core = tcase_create ("Core\n");
 	tcase_add_checked_fixture (tc_core, setup, teardown);
 	suite_add_tcase (s, tc_core);
 	
 	/* Digits test case */
-	TCase *tc_digits = tcase_create ("Digits/n");
+	TCase *tc_digits = tcase_create ("Digits\n");
 	tcase_add_test (tc_digits, test_roman_digit_check_individual);
 	tcase_add_test (tc_digits, test_roman_digit_check_individual_error);
 	suite_add_tcase (s, tc_digits);
@@ -180,7 +180,7 @@ romancalc_suite_digit_check (void)
 	Suite *s = suite_create ("\nRoman Calc Valid Digit Check");
 	
 	/* Digits test case */
-	TCase *tc_string_check = tcase_create ("Test for String Errors, Bad Chars/n");
+	TCase *tc_string_check = tcase_create ("Test for String Errors, Bad Chars\n");
 	tcase_add_test (tc_string_check, test_roman_digit_check_string);
 	tcase_add_test (tc_string_check, test_roman_digit_check_string_error);
 	suite_add_tcase (s, tc_string_check);
@@ -253,8 +253,8 @@ romancalc_suite_input_numerals_validation(void)
 	TCase *tc_user_input_numeral_validity = tcase_create ("Check Validity of User Input Roman Numerals\n");
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral);
 	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_length_error);
-//	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral_error);
-//	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_improper_error);
+	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_numeral_error);
+	tcase_add_test (tc_user_input_numeral_validity, test_validity_user_input_improper_error);
 	suite_add_tcase (s, tc_user_input_numeral_validity);
 	
 	return s;
@@ -281,12 +281,13 @@ romancalc_suite_subtract_simplification_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Subtraction Removal Simplification");
 	
 	/* Digits test case */
-	TCase *tc_sub_removal = tcase_create ("Test Subtractionan removal/n");
+	TCase *tc_sub_removal = tcase_create ("Test Subtractionan removal\n");
 	tcase_add_test (tc_sub_removal, test_roman_subtraction_removal);
 	suite_add_tcase (s, tc_sub_removal);
 	
 	return s;
 }
+
 // MARK: digit grouping/sorting test
 START_TEST (test_roman_digit_grouping	)
 {
@@ -302,7 +303,7 @@ romancalc_suite_digit_grouping_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Digit Grouping Checking");
 	
 	/* Digits test case */
-	TCase *tc_digit_group = tcase_create ("Test Roman Digit Grouping/n");
+	TCase *tc_digit_group = tcase_create ("Test Roman Digit Grouping\n");
 	tcase_add_test (tc_digit_group, test_roman_digit_grouping);
 	suite_add_tcase (s, tc_digit_group);
 	
@@ -335,7 +336,7 @@ romancalc_suite_digit_reduciton_multi_to_higher_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Digit group reduction");
 	
 	/* Digits test case */
-	TCase *tc_digit_reduce_multi_to_higher_digits = tcase_create ("Test Roman Multi Digit Value to Higher Value/n");
+	TCase *tc_digit_reduce_multi_to_higher_digits = tcase_create ("Test Roman Multi Digit Value to Higher Value\n");
 	tcase_add_test (tc_digit_reduce_multi_to_higher_digits, test_numeral_reduction_multi_to_higher_digits);
 	suite_add_tcase (s, tc_digit_reduce_multi_to_higher_digits);
 	
@@ -361,7 +362,7 @@ romancalc_suite_digit_reduction_improper_to_proper_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Improper to Proper Digits");
 	
 	/* Digits test case */
-	TCase *tc_digit_reduce_improper_to_proper = tcase_create ("Test Roman Improper to Proper Digits/n");
+	TCase *tc_digit_reduce_improper_to_proper = tcase_create ("Test Roman Improper to Proper Digits\n");
 	tcase_add_test (tc_digit_reduce_improper_to_proper, test_numeral_reduction_improper_to_proper);
 	suite_add_tcase (s, tc_digit_reduce_improper_to_proper);
 	
@@ -417,7 +418,7 @@ romancalc_suite_digit_reduction_full_check(void)
 	Suite *s = suite_create ("\nRoman Calc Suite Testing Full Post-Add Reduction to Proper Roman Numeral check");
 	
 	/* Digits test case */
-	TCase *tc_digit_reduce_fully = tcase_create ("Test Roman Post-Add Full Reduction to Proper Roman Numeral/n");
+	TCase *tc_digit_reduce_fully = tcase_create ("Test Roman Post-Add Full Reduction to Proper Roman Numeral\n");
 	tcase_add_test (tc_digit_reduce_fully, test_numeral_reduction_fully);
 	suite_add_tcase (s, tc_digit_reduce_fully);
 	
