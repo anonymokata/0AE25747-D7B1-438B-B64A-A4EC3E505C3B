@@ -251,9 +251,9 @@ romancalc_suite_digit_reduction_improper_to_proper_check(void)
 }
 
 
-START_TEST (test_numeral_reduction_improper_to_proper	)
+START_TEST (test_numeral_reduction_fully	)
 {
-	ck_assert_str_eq (rnum_reduce_improper_to_proper_digits ("IIII") ,"IV"); //   4
+	ck_assert_str_eq (rnum_reduce_fully ("IIII") ,"IV"); //   4
 }
 END_TEST
 
