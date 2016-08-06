@@ -71,13 +71,30 @@ int rnum_error_get_last_clear(void){
 void rnum_str_clear(char* roman_numeral_str){
 	(void)memset((void*)roman_numeral_str,0,MAX_STR_LEN_ROMAN_NUM+1); // null terminated
 }
-char *rnum_str_create(void){
-	char *str = (char*)malloc(MAX_STR_LEN_ROMAN_NUM+1); // null terminated
-	rnum_str_clear(str);
-	return str;
+
+rn_pair_strct_type * rnum_pair_create(void){
+	rn_pair_strct_type *rn_pair = malloc (sizeof (rn_pair_strct_type));
+	if (rn_pair == NULL)
+	{
+		return NULL;
+	}
+	
+	// initialize values
+	(*rn_pair).num_str_1	= NULL;
+	(*rn_pair).num_str_2	= NULL;
+	(*rn_pair).err		= RNUM_ERR_NONE;
+	
+	return rn_pair;						// return value
 }
-void  rnum_str_free(char* roman_numeral_str){
-	free (roman_numeral_str);
+
+void  rnum_str_free(rn_pair_strct_type * rnum_pair){
+	if(rnum_pair){
+		if((*rnum_pair).num_str_1)
+			free((*rnum_pair).num_str_1);
+		if((*rnum_pair).num_str_2)
+			free((*rnum_pair).num_str_2);
+		free (rnum_pair);
+}
 }
 
 /*******************************************************

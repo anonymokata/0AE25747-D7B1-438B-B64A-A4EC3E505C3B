@@ -35,13 +35,39 @@ typedef enum {
 void rnum_error_clear(void);
 int  rnum_error_get_last(void);
 
+/******************************************************
+ * rn_pair_strct_type
+ * Roman Numeral input pair for addition
+ *
+ * input examples
+ * Input      num_str_1   num_str_2    err
+ *  V+V          V          V        RNUM_ERR_NONE
+ *  V+           V          V        RNUM_ERR_NONE
+ *  +V           V         NULL      RNUM_ERR_NONE
+ *   V           V         NULL      RNUM_ERR_NONE
+ *  ""          NULL       NULL      RNUM_ERR_INPUT_LEN_ZERO
+ * NULL         NULL       NULL      RNUM_ERR_INPUT_NULL
+ * (string      NULL       NULL      RNUM_ERR_INPUT_LEN_EXCEED
+ * too long)
+ * (badly       NULL       NULL      RNUM_ERR_INVALID_NUMERAL_FORMAT
+ * formatted number)
+ * (bad chars   NULL       NULL      RNUM_ERR_INPUT_NON_NUMERAL
+ * in number)
+ ******************************************************/
+typedef struct {
+	char *num_str_1;
+	char *num_str_2;
+	int err;
+} rn_pair_strct_type;
+
 void roman_numeral_str_clear(char* roman_numeral_str);
-char *rnum_str_create(void);
+rn_pair_strct_type * rnum_pair_create(void);
 void  rnum_str_clear(char* roman_numeral_str);
-void  rnum_str_free(char* roman_numeral_str);
+void  rnum_str_free(rn_pair_strct_type * rnum_pair);
 int   rnum_check(char *rnum_str);						// check roman number string for valid digits
 int   rnum_numeral_len_check(char *rnum_str);
 int   rnum_numeral_validity_check(char *rnum_str);
+rn_pair_strct_type* rnum_input_split(char *rn_exp_str);
 char *rnum_subt_removal(char *rnum_str);
 char *rnum_digit_group(char *rnum_str);
 char *rnum_reduce_multi_to_higher_digits(char *rnum_str);
