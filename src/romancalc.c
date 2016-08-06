@@ -100,15 +100,18 @@ int   rnum_check(char *rnum_str){						// check roman number string for valid di
  *******************************************************/
 int   rnum_numeral_len_check(char *rnum_str){
 	int  rslt_tst;											// result of test
+	rslt_tst = RNUM_ERR_INPUT_NULL;							// check null input first
 	if(rnum_str != NULL){									// see if given a string at all
+		rslt_tst = RNUM_ERR_INPUT_LEN_ZERO;					// check if any input
 		if(*rnum_str != 0){									// make sure at least 1 char in input
+			rslt_tst = RNUM_ERR_INPUT_LEN_EXCEED;			// check if string too long
 			if(strlen(rnum_str) <= MAX_STR_LEN_ROMAN_NUM){	// make sure string does not exceed input length
-				return 0;
+				rslt_tst = RNUM_ERR_NONE;					// no problems with length
 			}
 		}
 	}
 	
-	return -1;												// invalid lenght string
+	return rslt_tst;										// report error
 }
 
 
@@ -128,18 +131,32 @@ int   rnum_numeral_len_check(char *rnum_str){
  *******************************************************/
 int   rnum_numeral_validity_check(char *rnum_str){
 	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
+	char *psrc;												// pointer
+	char *ptr_mid_out_str_1;								// mid-stage output string
+	char *ptr_mid_out_str_2;								// mid-stage output string
 	int  rslt_tst;											// result of test
+	int  rslt_tmp;											// temporary result
 	
-	rslt_tst = -1;											//
-
+	rslt_tst = RNUM_ERR_NONE;								// assume good input
 	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	
-	if(rnum_numeral_len_check == 0){						// if null terminate is valid
-															// then input sting length is good
-		strcpy(str_in_tmp, rnum_str);						// make temperorary copy
+	rslt_tst = rnum_numeral_len_check(rnum_str);			// first check length
+	if( rslt_tst == RNUM_ERR_NONE){							// if valid length
+		strcpy(str_in_tmp, rnum_str);						// make working copy
 		rslt_tst = rnum_check(str_in_tmp);					// ensure only valid roman numerals are present
-		if(rslt_tst == 0){									// no error then next validity check
-			
+		if(rslt_tst == RNUM_ERR_NONE){						// no error then next validity check
+			for(psrc = str_in_tmp; *psrc; psrc++)			//  process roman numerals as caps
+				*psrc = toupper(*psrc);						// capitalize it for processing
+			// check roman numeral for valid format
+			// the output of this step should match the input
+			// 1) remove roman numeral subtraction
+			ptr_mid_out_str_1 = rnum_subt_removal(str_in_tmp);
+			// 2) re-reduce the roman numerals back to proper numeral
+			ptr_mid_out_str_2 = rnum_reduce_fully(ptr_mid_out_str_1);
+			// 3) output had better match input or it was not a good number
+			if(strcmp(str_in_tmp, ptr_mid_out_str_2))		// if in and out not equal
+				rslt_tst = RNUM_ERR_INVALID_NUMERAL_FORMAT;	// then bad format, improper sequence
+															// within roman numeral string
 		}
 	}
 
