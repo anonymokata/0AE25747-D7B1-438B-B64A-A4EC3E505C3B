@@ -32,6 +32,7 @@ typedef enum {
 	RNUM_ERR_INPUT_LEN_EXCEED	= -4,		// numeral was too long to process
 	RNUM_ERR_INPUT_NON_NUMERAL	= -5,		// invalid character withing numeral string
 	RNUM_ERR_INVALID_NUMERAL_FORMAT = -6,	// good numerals, bad order for proper roman numeral
+	RNUM_ERR_EMPTY_INPUT		= -7,		// empty input
 	RNUM_ERR_ = -999
 } rnum_err_enum ;
 void rnum_error_clear(void);

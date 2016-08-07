@@ -306,6 +306,11 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 		ptr_str_2 = NULL;
 	}
 
+	if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
+	   ((*rn_pair).num_str_2 == NULL)){						// values
+		(*rn_pair).err = RNUM_ERR_EMPTY_INPUT;				// then 
+	}
+
 	return rn_pair;						// return value
 }
 
