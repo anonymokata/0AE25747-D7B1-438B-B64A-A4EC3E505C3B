@@ -280,10 +280,15 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 	char *ptr_str_1;										//
 	char *ptr_str_2;										//
 
-	rslt_tst = RNUM_ERR_NONE;								// assume good input
-	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	rn_pair_strct_type *rn_pair = rnum_pair_create();
-
+	rslt_tst = RNUM_ERR_NONE;								// assume good input
+	if(rn_exp_str == NULL){
+		rslt_tst = RNUM_ERR_INPUT_NULL;						// NULL INPUT
+	} else {
+		if(*rn_exp_str = 0){
+			rslt_tst = RNUM_ERR_INPUT_LEN_ZERO;						// Empty string
+		} else {
+	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	strcpy(str_in_tmp, rn_exp_str);							// make working copy
 	
 	ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
@@ -308,9 +313,12 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 
 	if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
 	   ((*rn_pair).num_str_2 == NULL)){						// values
-		(*rn_pair).err = RNUM_ERR_EMPTY_INPUT;				// then 
+				rslt_tst = RNUM_ERR_EMPTY_INPUT;					// then
 	}
-
+		}
+	}
+	(*rn_pair).err = rslt_tst;										// store test result
+	rn_err = rslt_tst;												// stor global error
 	return rn_pair;						// return value
 }
 
