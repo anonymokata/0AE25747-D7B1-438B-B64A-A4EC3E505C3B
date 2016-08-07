@@ -282,10 +282,11 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 
 	rn_pair_strct_type *rn_pair = rnum_pair_create();
 	rslt_tst = RNUM_ERR_NONE;								// assume good input
+	
 	if(rn_exp_str == NULL){
-		rslt_tst = RNUM_ERR_INPUT_NULL;						// NULL INPUT
+		rslt_tst = RNUM_ERR_INPUT_NULL;								// NULL INPUT
 	} else {
-		if(*rn_exp_str = 0){
+		if(*rn_exp_str == 0){
 			rslt_tst = RNUM_ERR_INPUT_LEN_ZERO;						// Empty string
 		} else {
 			memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
@@ -310,7 +311,7 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 			} else {
 				ptr_str_2 = NULL;
 			}
-			
+
 			if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
 			   ((*rn_pair).num_str_2 == NULL)){						// values
 				rslt_tst = RNUM_ERR_EMPTY_INPUT;					// then
@@ -598,28 +599,38 @@ char *rnum_reduce_fully(char *rnum_str){
  * in number)
  *******************************************************/
 rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
-	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
-	int rslt_tmp;
-	rn_pair_strct_type *rn_rslt;							// result storage
+	char str_in_tmp[TSTR_LEN];									// temp store input value for re-running loop
+	int rslt_err;
+	int rslt_err2;												// error used while validating second string
+	char *psrc;													// iterate through input to capitalize
+	rn_pair_strct_type *rn_rslt;								// result storage
+	
+	rslt_err = RNUM_ERR_NONE;									// init error
 	
 	if(rn_exp_str){
 		memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 		strncpy(str_in_tmp, rn_exp_str, TSTR_LEN);				// copy into working storage
 		
+		for(psrc = str_in_tmp; *psrc; psrc++)					// iterate through input string
+			*psrc = toupper(*psrc);								// to capitalize all input
+
 		rn_rslt = rnum_input_split(str_in_tmp);					// split the input basic checking
+		rslt_err = rn_rslt->err;								// move err to local error
+
 		
-		if((rn_rslt->err == RNUM_ERR_NONE)){
-			rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_1);
-			if(rslt_tmp == RNUM_ERR_NONE){
-				rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_2);
-				if(rslt_tmp == RNUM_ERR_NONE){
+
+		if((rslt_err == RNUM_ERR_NONE)){
+			rslt_err = rnum_numeral_validity_check(rn_rslt->num_str_1);
+			if(rslt_err == RNUM_ERR_NONE){
+				rslt_err2 = rnum_numeral_validity_check(rn_rslt->num_str_2);
+				if(rslt_err2 == RNUM_ERR_NONE){
 				}
 			}
 		}
 	}
 	
-	(*rn_pair).err = rslt_tst;										// store test result
-	rn_err = rslt_tst;												// stor global error
+	(*rn_rslt).err = rslt_err;										// store test result
+	rn_err = rslt_err;												// stor global error
 	return rn_rslt;
 }
 
