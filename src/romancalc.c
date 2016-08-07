@@ -183,7 +183,7 @@ int   rnum_numeral_len_check(char *rnum_str){
 		rslt_tst = RNUM_ERR_INPUT_LEN_ZERO;					// check if any input
 		if(*rnum_str != 0){									// make sure at least 1 char in input
 			rslt_tst = RNUM_ERR_INPUT_LEN_EXCEED;			// check if string too long
-			if(strlen(rnum_str) <= MAX_STR_LEN_ROMAN_NUM){	// make sure string does not exceed input length
+			if(strlen(rnum_str) <= MAX_STR_LEN_ROMAN_INPUT){	// make sure string does not exceed input length
 				rslt_tst = RNUM_ERR_NONE;					// no problems with length
 			}
 		}
@@ -571,7 +571,9 @@ char *rnum_reduce_fully(char *rnum_str){
  *   full expression add
  * input:
  *	     rn_exp_str  NULL terminated string containg
- *                 roman numeral
+ *                 roman numeral expression
+ *                 two valid roman numerals separated by
+ *                 an addition delimeter "+"
  * returns:
  *       rn_pair_strct_type
  *

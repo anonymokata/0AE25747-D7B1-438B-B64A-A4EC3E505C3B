@@ -21,9 +21,11 @@
 //* Max Input  string width 15+1 (null terminated)
 //********************************************/
 
-// maximum input length 1024 roman numeral digits
-// allows the the user to be
-#define MAX_STR_LEN_ROMAN_NUM (1024)
+// each roman numeral can be maximum input
+// length of 512 roman numeral digits
+// allows the the user to be add bit digits
+#define MAX_STR_LEN_ROMAN_INPUT (512)
+#define MAX_STR_LEN_ROMAN_NUM ((MAX_STR_LEN_ROMAN_INPUT*2)+100)
 typedef enum {
 	RNUM_ERR_NONE				= 0,
 	RNUM_ERR_GENERAL			= -1,		// temp lump in while developing,
@@ -32,7 +34,7 @@ typedef enum {
 	RNUM_ERR_INPUT_LEN_EXCEED	= -4,		// numeral was too long to process
 	RNUM_ERR_INPUT_NON_NUMERAL	= -5,		// invalid character withing numeral string
 	RNUM_ERR_INVALID_NUMERAL_FORMAT = -6,	// good numerals, bad order for proper roman numeral
-	RNUM_ERR_EMPTY_INPUT		= -7,		// empty input
+	RNUM_ERR_EMPTY_INPUT		= -7,		// bad numerals on both sides of delimeter
 	RNUM_ERR_ = -999
 } rnum_err_enum ;
 void rnum_error_clear(void);
@@ -77,6 +79,40 @@ char *rnum_digit_group(char *rnum_str);
 char *rnum_reduce_multi_to_higher_digits(char *rnum_str);
 char *rnum_reduce_improper_to_proper_digits(char *rnum_str);
 char *rnum_reduce_fully(char *rnum_str);
+
+/*******************************************************
+ * rnum_full_add
+ *   full expression add
+ * input:
+ *	     rn_exp_str  NULL terminated string containg
+ *                 roman numeral expression
+ *                 two valid roman numerals separated by
+ *                 an addition delimeter "+"
+ * returns:
+ *       rn_pair_strct_type
+ *
+ * typedef struct {
+ *   char *num_str_1;
+ *   char *num_str_2;
+ *   char *result_str;
+ *   int err;
+ *  } rn_pair_strct_type;
+ * input examples
+ * Input      num_str_1 num_str_2 result_str   err
+ *  V+V          V        V          X     RNUM_ERR_NONE
+ *  V+           V        V          X     RNUM_ERR_NONE
+ *  +V           V       NULL        V     RNUM_ERR_NONE
+ *   V           V       NULL        V     RNUM_ERR_NONE
+ *  ""          NULL     NULL       NULL   RNUM_ERR_INPUT_LEN_ZERO
+ * NULL         NULL     NULL       NULL   RNUM_ERR_INPUT_NULL
+ * (string      NULL     NULL       NULL   RNUM_ERR_INPUT_LEN_EXCEED
+ * too long)
+ * (badly       NULL     NULL       NULL   RNUM_ERR_INVALID_NUMERAL_FORMAT
+ * formatted number)
+ * (bad chars   NULL     NULL       NULL   RNUM_ERR_INPUT_NON_NUMERAL
+ * in number)
+ *******************************************************/
 rn_pair_strct_type* rnum_full_add(char *rn_exp_str);
+
 #endif
 

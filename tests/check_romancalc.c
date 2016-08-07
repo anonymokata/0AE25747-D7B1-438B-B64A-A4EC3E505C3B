@@ -23,9 +23,9 @@ teardown (void)
 // MARK: input length validation
 START_TEST (test_validity_input_len	)
 {
-	char str_in_tmp[MAX_STR_LEN_ROMAN_NUM + 2];			// check length checking
+	char str_in_tmp[MAX_STR_LEN_ROMAN_INPUT + 2];			// check length checking
 	(void)memset(str_in_tmp,    0, sizeof(str_in_tmp));	/// init with null termination
-	(void)memset(str_in_tmp,  'M', MAX_STR_LEN_ROMAN_NUM);	/// init with null termination
+	(void)memset(str_in_tmp,  'M', MAX_STR_LEN_ROMAN_INPUT);	/// init with null termination
 	ck_assert_int_eq (rnum_numeral_len_check (str_in_tmp), RNUM_ERR_NONE);
 }
 END_TEST
