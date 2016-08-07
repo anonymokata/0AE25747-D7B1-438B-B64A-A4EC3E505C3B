@@ -46,24 +46,3 @@ client of libmoney.la, just as tests/check_money.c:main() is a client
 of libmoney.la
 
 Please send bug reports to check-devel AT lists.sourceforge.net.
-
-
-
-
-
-
-
-bugs or oversights found in check platform
-libtool: link: gcc -g -O2 -o .libs/check_romancalc check_romancalc-check_romancalc.o  ../src/.libs/libromancalc.so -lcheck
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check.o): In function `tcase_create':
-(.text+0x194): undefined reference to `floor'
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check.o): In function `tcase_set_timeout':
-(.text+0x435): undefined reference to `floor'
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check_pack.o): In function `ppack':
-(.text+0x51d): undefined reference to `__pthread_register_cancel'
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check_run.o): In function `srunner_run':
-(.text+0x965): undefined reference to `timer_create'
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check_run.o): In function `srunner_run':
-(.text+0x9b3): undefined reference to `timer_settime'
-/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/libcheck.a(check_run.o): In function `srunner_run':
-(.text+0x9d9): undefined reference to `timer_delete'
