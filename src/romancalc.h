@@ -14,6 +14,8 @@
 //*	D		 500		1
 //*	M		1000		3					*
 //*											*
+//* Large Test Inputs MMMDCCCLXXXVIII		3888	*
+//* Large Test Inputs MMMMMMMDCCLXXVI		7776
 //* (Using defined roman numerals)
 //* Max Output string width 15+1 (null terminated)
 //* Max Input  string width 15+1 (null terminated)
@@ -57,7 +59,7 @@ int  rnum_error_get_last(void);
 typedef struct {
 	char *num_str_1;
 	char *num_str_2;
-	char *result;
+	char *result_str;
 	int err;
 } rn_pair_strct_type;
 
