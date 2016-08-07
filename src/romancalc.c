@@ -588,14 +588,25 @@ char *rnum_reduce_fully(char *rnum_str){
  * formatted number)
  * (bad chars   NULL     NULL       NULL   RNUM_ERR_INPUT_NON_NUMERAL
  * in number)
- 
  *******************************************************/
 rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
+	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
+	int rslt_tmp;
 	rn_pair_strct_type *rn_rslt;							// result storage
 	
-	rn_rslt = rnum_input_split(rn_exp_str);					// split the input
+	if(rn_exp_str){
+		memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
+		strncpy(str_in_tmp, rn_exp_str, TSTR_LEN);				// copy into working storage
 	
+		rn_rslt = rnum_input_split(str_in_tmp);					// split the input basic checking
 	
+		rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_1);
+		if(rslt_tmp == RNUM_ERR_NONE){
+			rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_2);
+			if(rslt_tmp == RNUM_ERR_NONE){
+			}
+		}
+	}
 	return rn_rslt;
 }
 
