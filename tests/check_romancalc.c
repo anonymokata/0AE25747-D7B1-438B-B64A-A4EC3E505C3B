@@ -268,6 +268,28 @@ START_TEST (test_input_split )
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
 	teardown();
+	
+	ptr_tst_pair = rnum_input_split ("V+V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
+	teardown();
+	
+	ptr_tst_pair = rnum_input_split ("V+");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	teardown();
+	
+	ptr_tst_pair = rnum_input_split ("+V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	teardown();
+	
 }
 END_TEST
 

@@ -50,6 +50,8 @@
 #define IMP_9   RN_5   FOUR_1s
 #define IMP_4   FOUR_1s
 
+// addition delimeter
+#define ADD_DELIMETER "+"
 
 char *rdigits=RN_1000 RN_500 RN_100 RN_50 RN_10 RN_5 RN_1;	// roman numerals in order
 
@@ -229,10 +231,36 @@ int   rnum_numeral_validity_check(char *rnum_str){
 
  *******************************************************/
 rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
+	char str_in_tmp[TSTR_LEN];								// temp store input value for re-running loop
+	int  rslt_tst;											// result of test
+	char *ptr_str_1;										//
+	char *ptr_str_2;										//
+
+	rslt_tst = RNUM_ERR_NONE;								// assume good input
+	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 	rn_pair_strct_type *rn_pair = rnum_pair_create();
 
-	// initialize values
-	(*rn_pair).num_str_1	= strdup(rn_exp_str);
+	strcpy(str_in_tmp, rn_exp_str);							// make working copy
+	
+	ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
+	ptr_str_2 = strtok(NULL, ADD_DELIMETER);				// split the string
+
+	if((ptr_str_1 != NULL) && (*ptr_str_1 != 0)){
+		(*rn_pair).num_str_1 = strdup(ptr_str_1);			// make copy of string
+	} else {
+		ptr_str_1 = NULL;
+	}
+	
+	if((ptr_str_2 != NULL) && (*ptr_str_2 != 0)){
+		if((ptr_str_1 == NULL) || (*ptr_str_1 == 0)){
+			(*rn_pair).num_str_1 = strdup(ptr_str_2);		// make copy of string
+			(*rn_pair).num_str_2 = NULL;					// make copy of string
+		} else {
+			(*rn_pair).num_str_2 = strdup(ptr_str_2);		// make copy of string
+		}
+	} else {
+		ptr_str_2 = NULL;
+	}
 
 	return rn_pair;						// return value
 }
