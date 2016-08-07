@@ -1,6 +1,8 @@
 Running suite(s): 
 Roman Calc Suite
  
+Roman Calc Suite
+ 
 Roman Calc Valid Digit Check
  
 Roman Calc Suite Subtraction Removal Simplification
@@ -23,81 +25,81 @@ Roman Calc Suite Input Split Check Error Case
  
 Roman Calc Suite Test Full Addition check
 100%: Checks: 32, Failures: 0, Errors: 0
-check_romancalc.c:80:P:Digits
+check_romancalc.c:92:P:Digits
 :test_roman_digit_check_individual:0: Passed
-check_romancalc.c:125:P:Digits
+check_romancalc.c:137:P:Digits
 :test_roman_digit_check_individual_error:0: Passed
-check_romancalc.c:158:P:Test for String Errors, Bad Chars
+check_romancalc.c:165:P:Test for String Errors, Bad Chars
 :test_roman_digit_check_string:0: Passed
-check_romancalc.c:172:P:Test for String Errors, Bad Chars
+check_romancalc.c:179:P:Test for String Errors, Bad Chars
 :test_roman_digit_check_string_error:0: Passed
-check_romancalc.c:436:P:Test Subtractionan removal
+check_romancalc.c:443:P:Test Subtractionan removal
 :test_roman_subtraction_removal:0: Passed
-check_romancalc.c:458:P:Test Roman Digit Grouping
+check_romancalc.c:465:P:Test Roman Digit Grouping
 :test_roman_digit_grouping:0: Passed
-check_romancalc.c:491:P:Test Roman Multi Digit Value to Higher Value
+check_romancalc.c:498:P:Test Roman Multi Digit Value to Higher Value
 :test_numeral_reduction_multi_to_higher_digits:0: Passed
-check_romancalc.c:517:P:Test Roman Improper to Proper Digits
+check_romancalc.c:524:P:Test Roman Improper to Proper Digits
 :test_numeral_reduction_improper_to_proper:0: Passed
-check_romancalc.c:577:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral
+check_romancalc.c:584:P:Test Roman Post-Add Full Reduction to Proper Roman Numeral
 :test_numeral_reduction_fully:0: Passed
-check_romancalc.c:29:P:Check Lentgh
+check_romancalc.c:41:P:Check Lentgh
 :test_validity_input_len:0: Passed
-check_romancalc.c:42:P:Check Length Error
+check_romancalc.c:54:P:Check Length Error
 :test_validity_input_len_error:0: Passed
-check_romancalc.c:205:P:
-Check Validity of User Input Roman Numerals
-:test_validity_user_input_numeral:0: Passed
 check_romancalc.c:212:P:
 Check Validity of User Input Roman Numerals
+:test_validity_user_input_numeral:0: Passed
+check_romancalc.c:219:P:
+Check Validity of User Input Roman Numerals
 :test_validity_user_input_length_error:0: Passed
-check_romancalc.c:227:P:
+check_romancalc.c:234:P:
 Check Validity of User Input Roman Numerals
 :test_validity_user_input_numeral_error:0: Passed
-check_romancalc.c:242:P:
+check_romancalc.c:249:P:
 Check Validity of User Input Roman Numerals
 :test_validity_user_input_improper_error:0: Passed
-check_romancalc.c:270:P:
+check_romancalc.c:277:P:
 Check Input Splitroutine
 :test_input_split_1:0: Passed
-check_romancalc.c:282:P:
+check_romancalc.c:289:P:
 Check Input Splitroutine
 :test_input_split_2:0: Passed
-check_romancalc.c:294:P:
+check_romancalc.c:301:P:
 Check Input Splitroutine
 :test_input_split_3:0: Passed
-check_romancalc.c:306:P:
+check_romancalc.c:313:P:
 Check Input Splitroutine
 :test_input_split_4:0: Passed
-check_romancalc.c:336:P:
+check_romancalc.c:343:P:
 Check Input Splitroutine error cases
 :test_input_split_err_1:0: Passed
-check_romancalc.c:349:P:
+check_romancalc.c:356:P:
 Check Input Splitroutine error cases
 :test_input_split_err_2:0: Passed
-check_romancalc.c:362:P:
+check_romancalc.c:369:P:
 Check Input Splitroutine error cases
 :test_input_split_err_3:0: Passed
-check_romancalc.c:375:P:
+check_romancalc.c:382:P:
 Check Input Splitroutine error cases
 :test_input_split_err_4:0: Passed
-check_romancalc.c:388:P:
+check_romancalc.c:395:P:
 Check Input Splitroutine error cases
 :test_input_split_err_5:0: Passed
-check_romancalc.c:401:P:
+check_romancalc.c:408:P:
 Check Input Splitroutine error cases
 :test_input_split_err_6:0: Passed
-check_romancalc.c:602:P:Test Roman Full Addition
+check_romancalc.c:609:P:Test Roman Full Addition
 :test_full_addition_1:0: Passed
-check_romancalc.c:614:P:Test Roman Full Addition
+check_romancalc.c:621:P:Test Roman Full Addition
 :test_full_addition_2:0: Passed
-check_romancalc.c:626:P:Test Roman Full Addition
+check_romancalc.c:633:P:Test Roman Full Addition
 :test_full_addition_2a:0: Passed
-check_romancalc.c:639:P:Test Roman Full Addition
+check_romancalc.c:646:P:Test Roman Full Addition
 :test_full_addition_3:0: Passed
-check_romancalc.c:651:P:Test Roman Full Addition
+check_romancalc.c:658:P:Test Roman Full Addition
 :test_full_addition_4:0: Passed
-check_romancalc.c:663:P:Test Roman Full Addition
+check_romancalc.c:670:P:Test Roman Full Addition
 :test_full_addition_5:0: Passed
-check_romancalc.c:663:P:Test Roman Full Addition
+check_romancalc.c:670:P:Test Roman Full Addition
 :test_full_addition_5:0: Passed

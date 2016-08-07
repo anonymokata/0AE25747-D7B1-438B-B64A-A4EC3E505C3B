@@ -20,6 +20,18 @@ teardown (void)
 	rnum_str_free (ptr_tst_pair);
 }
 
+Suite *
+romancalc_suite_core (void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite");
+	
+	/* Core test case */
+	TCase *tc_core = tcase_create ("Core\n");
+	tcase_add_checked_fixture (tc_core, setup, teardown);
+	suite_add_tcase (s, tc_core);
+	return s;
+}
+
 // MARK: input length validation
 START_TEST (test_validity_input_len	)
 {
@@ -128,15 +140,10 @@ START_TEST (test_roman_digit_check_individual_error)
 END_TEST
 
 Suite *
-romancalc_suite (void)
+romancalc_suite_digit_check_individual (void)
 {
 	Suite *s = suite_create ("\nRoman Calc Suite");
-	
-	/* Core test case */
-	TCase *tc_core = tcase_create ("Core\n");
-	tcase_add_checked_fixture (tc_core, setup, teardown);
-	suite_add_tcase (s, tc_core);
-	
+		
 	/* Digits test case */
 	TCase *tc_digits = tcase_create ("Digits\n");
 	tcase_add_test (tc_digits, test_roman_digit_check_individual);
@@ -174,7 +181,7 @@ START_TEST (test_roman_digit_check_string_error	)
 END_TEST
 
 Suite *
-romancalc_suite_digit_check (void)
+romancalc_suite_digit_check_string (void)
 {
 	Suite *s = suite_create ("\nRoman Calc Valid Digit Check");
 	
@@ -702,8 +709,9 @@ main (void)
 {
   int number_failed;
 	
-  SRunner *sr = srunner_create (romancalc_suite ());
-  srunner_add_suite(sr, romancalc_suite_digit_check());
+  SRunner *sr = srunner_create (romancalc_suite_core ());
+  srunner_add_suite(sr, romancalc_suite_digit_check_individual());
+  srunner_add_suite(sr, romancalc_suite_digit_check_string());
   srunner_add_suite(sr, romancalc_suite_subtract_simplification_check());
   srunner_add_suite(sr, romancalc_suite_digit_grouping_check());
   srunner_add_suite(sr, romancalc_suite_digit_reduciton_multi_to_higher_check());
