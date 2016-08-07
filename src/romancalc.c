@@ -288,33 +288,33 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 		if(*rn_exp_str = 0){
 			rslt_tst = RNUM_ERR_INPUT_LEN_ZERO;						// Empty string
 		} else {
-	memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
-	strcpy(str_in_tmp, rn_exp_str);							// make working copy
-	
-	ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
-	ptr_str_2 = strtok(NULL, ADD_DELIMETER);				// split the string
+			memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
+			strcpy(str_in_tmp, rn_exp_str);							// make working copy
+			
+			ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
+			ptr_str_2 = strtok(NULL, ADD_DELIMETER);				// split the string
 
-	if((ptr_str_1 != NULL) && (*ptr_str_1 != 0)){
-		(*rn_pair).num_str_1 = strdup(ptr_str_1);			// make copy of string
-	} else {
-		ptr_str_1 = NULL;
-	}
-	
-	if((ptr_str_2 != NULL) && (*ptr_str_2 != 0)){
-		if((ptr_str_1 == NULL) || (*ptr_str_1 == 0)){
-			(*rn_pair).num_str_1 = strdup(ptr_str_2);		// make copy of string
-			(*rn_pair).num_str_2 = NULL;					// make copy of string
-		} else {
-			(*rn_pair).num_str_2 = strdup(ptr_str_2);		// make copy of string
-		}
-	} else {
-		ptr_str_2 = NULL;
-	}
-
-	if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
-	   ((*rn_pair).num_str_2 == NULL)){						// values
+			if((ptr_str_1 != NULL) && (*ptr_str_1 != 0)){
+				(*rn_pair).num_str_1 = strdup(ptr_str_1);			// make copy of string
+			} else {
+				ptr_str_1 = NULL;
+			}
+			
+			if((ptr_str_2 != NULL) && (*ptr_str_2 != 0)){
+				if((ptr_str_1 == NULL) || (*ptr_str_1 == 0)){
+					(*rn_pair).num_str_1 = strdup(ptr_str_2);		// make copy of string
+					(*rn_pair).num_str_2 = NULL;					// make copy of string
+				} else {
+					(*rn_pair).num_str_2 = strdup(ptr_str_2);		// make copy of string
+				}
+			} else {
+				ptr_str_2 = NULL;
+			}
+			
+			if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
+			   ((*rn_pair).num_str_2 == NULL)){						// values
 				rslt_tst = RNUM_ERR_EMPTY_INPUT;					// then
-	}
+			}
 		}
 	}
 	(*rn_pair).err = rslt_tst;										// store test result
@@ -605,16 +605,21 @@ rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
 	if(rn_exp_str){
 		memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 		strncpy(str_in_tmp, rn_exp_str, TSTR_LEN);				// copy into working storage
-	
+		
 		rn_rslt = rnum_input_split(str_in_tmp);					// split the input basic checking
-	
-		rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_1);
-		if(rslt_tmp == RNUM_ERR_NONE){
-			rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_2);
+		
+		if((rn_rslt->err == RNUM_ERR_NONE)){
+			rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_1);
 			if(rslt_tmp == RNUM_ERR_NONE){
+				rslt_tmp = rnum_numeral_validity_check(rn_rslt->num_str_2);
+				if(rslt_tmp == RNUM_ERR_NONE){
+				}
 			}
 		}
 	}
+	
+	(*rn_pair).err = rslt_tst;										// store test result
+	rn_err = rslt_tst;												// stor global error
 	return rn_rslt;
 }
 
