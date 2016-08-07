@@ -57,6 +57,7 @@ int  rnum_error_get_last(void);
 typedef struct {
 	char *num_str_1;
 	char *num_str_2;
+	char *result;
 	int err;
 } rn_pair_strct_type;
 

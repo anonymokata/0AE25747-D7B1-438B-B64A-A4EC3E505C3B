@@ -84,6 +84,7 @@ rn_pair_strct_type * rnum_pair_create(void){
 	// initialize values
 	(*rn_pair).num_str_1	= NULL;
 	(*rn_pair).num_str_2	= NULL;
+	(*rn_pair).result_str	= NULL;
 	(*rn_pair).err		= RNUM_ERR_NONE;
 	
 	return rn_pair;						// return value
@@ -95,6 +96,8 @@ void  rnum_str_free(rn_pair_strct_type * rnum_pair){
 			free((*rnum_pair).num_str_1);
 		if((*rnum_pair).num_str_2)
 			free((*rnum_pair).num_str_2);
+		if((*rnum_pair).result_str)
+			free((*rnum_pair).result_str);
 		free (rnum_pair);
 	}
 }
