@@ -31,7 +31,7 @@ AC_PROG_LIBTOOL
 #  AM_PATH_CHECK([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 # AM_PATH_CHECK()
 # AM_PATH_CHECK depredicated https://sourceforge.net/p/check/mailman/message/2751663/
-PKG_CHECK_MODULES(CHECK, [check >= 0.9.4],,[AC_MSG_RESULT([no, testing is disabled])])
+PKG_CHECK_MODULES([CHECK], [check >= 0.9.4],,[AC_MSG_RESULT([no, testing is disabled])])
 
 # Checks for header files.
 AC_HEADER_STDC
