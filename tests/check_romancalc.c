@@ -487,7 +487,7 @@ START_TEST (test_full_addition_1	)
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);         // and no second number
-	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "V");        // no result at this test
 	teardown();
 }
 END_TEST
@@ -499,8 +499,21 @@ START_TEST (test_full_addition_2	)
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
-	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "X");        // no result at this test
 	teardown();
+}
+END_TEST
+
+START_TEST (test_full_addition_2a	)
+{
+	ptr_tst_pair = rnum_full_add (" V + V ");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "X");        // no result at this test
+	teardown();
+	
 }
 END_TEST
 
@@ -511,7 +524,7 @@ START_TEST (test_full_addition_3	)
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
-	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "V");        // no result at this test
 	teardown();
 }
 END_TEST
@@ -523,7 +536,19 @@ START_TEST (test_full_addition_4	)
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
-	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "V");        // no result at this test
+	teardown();
+}
+END_TEST
+
+START_TEST (test_full_addition_5	)
+{
+	ptr_tst_pair = rnum_full_add ("MMMDCCCLXXXVIII+MMMDCCCLXXXVIII");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "MMMDCCCLXXXVIII");			// and first number loaded
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "MMMDCCCLXXXVIII");          // and no second number
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "MMMMMMMDCCLXXVI");        // no result at this test
 	teardown();
 }
 END_TEST
@@ -537,8 +562,10 @@ romancalc_suite_full_addition_check(void)
 	TCase *tc_full_addition = tcase_create ("Test Roman Full Addition\n");
 	tcase_add_test (tc_full_addition, test_full_addition_1);
 	tcase_add_test (tc_full_addition, test_full_addition_2);
+	tcase_add_test (tc_full_addition, test_full_addition_2a);
 	tcase_add_test (tc_full_addition, test_full_addition_3);
 	tcase_add_test (tc_full_addition, test_full_addition_4);
+	tcase_add_test (tc_full_addition, test_full_addition_5);
 	suite_add_tcase (s, tc_full_addition);
 	
 	return s;

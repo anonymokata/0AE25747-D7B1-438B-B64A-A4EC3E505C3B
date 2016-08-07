@@ -131,14 +131,14 @@ size_t trimwhitespace(char *out, size_t len, const char *str)
 	end = str + strlen(str) - 1;
 	while(end > str && isspace(*end)) end--;
 	end++;
-	
+
 	// Set output size to minimum of trimmed string length and buffer size minus 1
 	out_size = (end - str) < len-1 ? (end - str) : len-1;
 	
 	// Copy trimmed string and add null terminator
 	memcpy(out, str, out_size);
 	out[out_size] = 0;
-	
+
 	return out_size;
 }
 //////////////////////////////////////////
@@ -598,6 +598,13 @@ char *rnum_reduce_fully(char *rnum_str){
  *******************************************************/
 rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
 	char str_in_tmp[TSTR_LEN];									// temp store input value for re-running loop
+	char str_out_tmp[TSTR_LEN];									// temp store output value for re-running loop
+	char str_tmp1[TSTR_LEN];									// temp storage for mid calculatio storage
+	char str_tmp2[TSTR_LEN];									// temp storage for mid calculatio storage
+	size_t len_tmp1 = 0;										// temp storage length
+	size_t len_tmp2 = 0;										// temp storage length
+	char *ptr_str_1;											// temp storage for string
+	char *ptr_str_2;											// temp storage for string
 	int rslt_err;
 	int rslt_err2;												// error used while validating second string
 	char *psrc;													// iterate through input to capitalize
@@ -615,14 +622,43 @@ rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
 		rn_rslt = rnum_input_split(str_in_tmp);					// split the input basic checking
 		rslt_err = rn_rslt->err;								// move err to local error
 
-		
-
 		if((rslt_err == RNUM_ERR_NONE)){
+																// get rid of trailing and leading whitespace
+			len_tmp1 = trimwhitespace(str_tmp1,(size_t) (strlen(rn_rslt->num_str_1)+1), rn_rslt->num_str_1);
+			
+			free(rn_rslt->num_str_1);							// dump the old text
+			rn_rslt->num_str_1 = strdup(str_tmp1);				// get copy of white space removed text
+			
 			rslt_err = rnum_numeral_validity_check(rn_rslt->num_str_1);
-			if(rslt_err == RNUM_ERR_NONE){
-				rslt_err2 = rnum_numeral_validity_check(rn_rslt->num_str_2);
-				if(rslt_err2 == RNUM_ERR_NONE){
+			if(rslt_err != RNUM_ERR_NONE){
+				free(rn_rslt->num_str_1);							// dump the old text
+				rn_rslt->num_str_1 = NULL;							// error so
+			} else {
+				ptr_str_1 = rnum_subt_removal(rn_rslt->num_str_1);	// un-wrap roman numeral subtraction within number
+
+				strcpy(str_out_tmp, ptr_str_1);		// put first part of string into temp result
+				
+				// get rid of trailing and leading whitespace
+				if(rn_rslt->num_str_2){							// if there was some string value (not NULL)
+					len_tmp2 = trimwhitespace(str_tmp2,(size_t) (strlen(rn_rslt->num_str_2)+1), rn_rslt->num_str_2);
+
+					free(rn_rslt->num_str_2);					// dump the old text
+					rn_rslt->num_str_2 = strdup(str_tmp2);		// get copy of white space removed text
+					
+					rslt_err = rnum_numeral_validity_check(rn_rslt->num_str_2);
+					if(rslt_err2 != RNUM_ERR_NONE){
+						free(rn_rslt->num_str_2);							// dump the old text
+						rn_rslt->num_str_2 = NULL;							// error so
+					} else {
+						ptr_str_2 = rnum_subt_removal(rn_rslt->num_str_2);	// un-wrap roman numeral subtraction within number
+						free(rn_rslt->num_str_2);				// dump the old text
+						rn_rslt->num_str_2 = ptr_str_2;			// store unwrapped digit
+
+						strcat(str_out_tmp, rn_rslt->num_str_2);		// put first part of string into temp result
+					}
 				}
+				
+				rn_rslt->result_str = rnum_reduce_fully(str_out_tmp);
 			}
 		}
 	}

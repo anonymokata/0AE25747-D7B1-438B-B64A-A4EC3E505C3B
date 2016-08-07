@@ -20,7 +20,7 @@ Roman Calc Suite Check Validity of User Input Roman Numeral
 Roman Calc Suite Input Split Check
  
 Roman Calc Suite Test Full Addition check
-100%: Checks: 20, Failures: 0, Errors: 0
+100%: Checks: 22, Failures: 0, Errors: 0
 check_romancalc.c:80:P:Digits
 :test_roman_digit_check_individual:0: Passed
 check_romancalc.c:125:P:Digits
@@ -63,6 +63,10 @@ check_romancalc.c:490:P:Test Roman Full Addition
 check_romancalc.c:502:P:Test Roman Full Addition
 :test_full_addition_2:0: Passed
 check_romancalc.c:514:P:Test Roman Full Addition
+:test_full_addition_2a:0: Passed
+check_romancalc.c:527:P:Test Roman Full Addition
 :test_full_addition_3:0: Passed
-check_romancalc.c:526:P:Test Roman Full Addition
+check_romancalc.c:539:P:Test Roman Full Addition
 :test_full_addition_4:0: Passed
+check_romancalc.c:551:P:Test Roman Full Addition
+:test_full_addition_5:0: Passed
