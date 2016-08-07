@@ -4,9 +4,5 @@ aclocal
 autoheader
 automake --force-missing --add-missing
 autoconf
-./configure
-#make -i
-#make -i
-#make -i check
-#make -i check
-#make -i check
+./configure CFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib"
+bash ./mymake.sh

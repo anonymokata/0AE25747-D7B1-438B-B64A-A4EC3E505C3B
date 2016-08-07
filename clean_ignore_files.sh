@@ -1,9 +1,14 @@
 #!/bin/bash
-echo **************************************************************
-echo NOTE: 8/7/2016  this file wipes directories back to basic
-echo so that the automake and autoconf and autoreconf can be tested
-echo **************************************************************
-
+echo
+echo
+echo '**************** begin of clean_ignore_file.sh *********************'
+echo '********************************************************************'
+echo   NOTE: 8/7/2016  this file wipes directories back to basic so that
+echo       make, automake, autoconf, and autoreconf can be tested
+echo '********************************************************************'
+echo '********************************************************************'
+echo
+ehco
 rm    aclocal.m4
 rm -R autom4te.cache
 rm -R build-aux
@@ -34,3 +39,6 @@ rm    tests/*.o
 #rm    tests/*.lo
 rm    tests/Makefile
 rm    tests/Makefile.in
+rm    tests/check_romancalc.trs
+echo
+echo '***************** end of clean_ignore_file.sh *********************'

@@ -26,5 +26,6 @@ tests/.libs
 tests/*.o
 tests/*.lo
 tests/check_romancalc
+tests/check_romancalc.trs
 tests/Makefile
 tests/Makefile.in
