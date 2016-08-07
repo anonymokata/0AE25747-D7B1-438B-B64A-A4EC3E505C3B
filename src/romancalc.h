@@ -25,7 +25,7 @@
 // length of 512 roman numeral digits
 // allows the the user to be add bit digits
 #define MAX_STR_LEN_ROMAN_INPUT (512)
-#define MAX_STR_LEN_ROMAN_NUM ((MAX_STR_LEN_ROMAN_INPUT*2)+100)
+#define MAX_STR_LEN_ROMAN_NUM ((MAX_STR_LEN_ROMAN_INPUT*4)+100)
 typedef enum {
 	RNUM_ERR_NONE				= 0,
 	RNUM_ERR_GENERAL			= -1,		// temp lump in while developing,
@@ -35,6 +35,7 @@ typedef enum {
 	RNUM_ERR_INPUT_NON_NUMERAL	= -5,		// invalid character withing numeral string
 	RNUM_ERR_INVALID_NUMERAL_FORMAT = -6,	// good numerals, bad order for proper roman numeral
 	RNUM_ERR_EMPTY_INPUT		= -7,		// bad numerals on both sides of delimeter
+	RNUM_ERR_MULTIPLE_DELIMETER	= -8,		// more than 1 "+" sign
 	RNUM_ERR_ = -999
 } rnum_err_enum ;
 void rnum_error_clear(void);

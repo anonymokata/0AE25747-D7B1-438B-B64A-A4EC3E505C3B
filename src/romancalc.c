@@ -279,6 +279,8 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 	int  rslt_tst;											// result of test
 	char *ptr_str_1;										//
 	char *ptr_str_2;										//
+	char *ptrc;												// used to look for multiple delimeters
+	int cnt_delim;											// used to make sure only 1 delimter per expression
 
 	rn_pair_strct_type *rn_pair = rnum_pair_create();
 	rslt_tst = RNUM_ERR_NONE;								// assume good input
@@ -292,29 +294,43 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
 			memset(str_in_tmp,  0, TSTR_LEN);						// init tstr null
 			strcpy(str_in_tmp, rn_exp_str);							// make working copy
 			
-			ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
-			ptr_str_2 = strtok(NULL, ADD_DELIMETER);				// split the string
-
-			if((ptr_str_1 != NULL) && (*ptr_str_1 != 0)){
-				(*rn_pair).num_str_1 = strdup(ptr_str_1);			// make copy of string
-			} else {
-				ptr_str_1 = NULL;
-			}
-			
-			if((ptr_str_2 != NULL) && (*ptr_str_2 != 0)){
-				if((ptr_str_1 == NULL) || (*ptr_str_1 == 0)){
-					(*rn_pair).num_str_1 = strdup(ptr_str_2);		// make copy of string
-					(*rn_pair).num_str_2 = NULL;					// make copy of string
-				} else {
-					(*rn_pair).num_str_2 = strdup(ptr_str_2);		// make copy of string
+			// look for second "error"ed delimeter
+			// can only have 1 per expression
+			ptrc = str_in_tmp;
+			cnt_delim = 0;
+			while(*ptrc){
+				if(*ptrc++==*ADD_DELIMETER){
+					cnt_delim++;
 				}
-			} else {
-				ptr_str_2 = NULL;
 			}
 
-			if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
-			   ((*rn_pair).num_str_2 == NULL)){						// values
-				rslt_tst = RNUM_ERR_EMPTY_INPUT;					// then
+			if(cnt_delim > 1){											// multiplers add delimeters is error
+				rslt_tst = RNUM_ERR_MULTIPLE_DELIMETER;					// then
+			} else {													// only 1 delimeter in expresion
+				
+				ptr_str_1 = strtok(str_in_tmp, ADD_DELIMETER);			// split the string
+				ptr_str_2 = strtok(NULL, ADD_DELIMETER);				// split the string
+				if((ptr_str_1 != NULL) && (*ptr_str_1 != 0)){
+					(*rn_pair).num_str_1 = strdup(ptr_str_1);			// make copy of string
+				} else {
+					ptr_str_1 = NULL;
+				}
+				
+				if((ptr_str_2 != NULL) && (*ptr_str_2 != 0)){
+					if((ptr_str_1 == NULL) || (*ptr_str_1 == 0)){
+						(*rn_pair).num_str_1 = strdup(ptr_str_2);		// make copy of string
+						(*rn_pair).num_str_2 = NULL;					// make copy of string
+					} else {
+						(*rn_pair).num_str_2 = strdup(ptr_str_2);		// make copy of string
+					}
+				} else {
+					ptr_str_2 = NULL;
+				}
+
+				if(((*rn_pair).num_str_1 == NULL) &&					// if there was no useable
+				   ((*rn_pair).num_str_2 == NULL)){						// values
+					rslt_tst = RNUM_ERR_EMPTY_INPUT;					// then
+				}
 			}
 		}
 	}

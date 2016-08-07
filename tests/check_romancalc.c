@@ -260,7 +260,7 @@ romancalc_suite_input_numerals_validation(void)
 }
 
 // MARK: romancalc_suite_input_split_check
-START_TEST (test_input_split )
+START_TEST (test_input_split_1 )
 {
 	ptr_tst_pair = rnum_input_split ("V");			//
 	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
@@ -269,7 +269,11 @@ START_TEST (test_input_split )
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);         // and no second number
 	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
-	
+}
+END_TEST
+
+START_TEST (test_input_split_2 )
+{
 	ptr_tst_pair = rnum_input_split ("V+V");			//
 	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
@@ -277,7 +281,11 @@ START_TEST (test_input_split )
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
 	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
-	
+}
+END_TEST
+
+START_TEST (test_input_split_3 )
+{
 	ptr_tst_pair = rnum_input_split ("V+");			//
 	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
@@ -285,7 +293,11 @@ START_TEST (test_input_split )
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
 	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
-	
+}
+END_TEST
+
+START_TEST (test_input_split_4 )
+{
 	ptr_tst_pair = rnum_input_split ("+V");			//
 	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
@@ -304,8 +316,108 @@ romancalc_suite_input_split_check(void)
 	
 	/* Digits test case */
 	TCase *tc_input_split = tcase_create ("\nCheck Input Splitroutine\n");
-	tcase_add_test (tc_input_split, test_input_split);
+	tcase_add_test (tc_input_split, test_input_split_1);
+	tcase_add_test (tc_input_split, test_input_split_2);
+	tcase_add_test (tc_input_split, test_input_split_3);
+	tcase_add_test (tc_input_split, test_input_split_4);
 	suite_add_tcase (s, tc_input_split);
+	
+	return s;
+}
+
+// MARK: split check error cases
+START_TEST (test_input_split_err_1 )
+{
+	ptr_tst_pair = rnum_input_split ("V+V+C");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+START_TEST (test_input_split_err_2 )
+{
+	ptr_tst_pair = rnum_input_split ("V++C");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+START_TEST (test_input_split_err_3 )
+{
+	ptr_tst_pair = rnum_input_split ("V+V+");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+START_TEST (test_input_split_err_4 )
+{
+	ptr_tst_pair = rnum_input_split ("+V+C");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+START_TEST (test_input_split_err_5 )
+{
+	ptr_tst_pair = rnum_input_split ("++C");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+START_TEST (test_input_split_err_6 )
+{
+	ptr_tst_pair = rnum_input_split ("C++");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_MULTIPLE_DELIMETER);		// multiple delimeter
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_1, NULL);			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+}
+END_TEST
+
+Suite *
+romancalc_suite_input_split_check_error(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Input Split Check Error Case");
+	
+	/* Digits test case */
+	TCase *tc_input_split_err = tcase_create ("\nCheck Input Splitroutine error cases\n");
+	tcase_add_test (tc_input_split_err, test_input_split_err_1);
+	tcase_add_test (tc_input_split_err, test_input_split_err_2);
+	tcase_add_test (tc_input_split_err, test_input_split_err_3);
+	tcase_add_test (tc_input_split_err, test_input_split_err_4);
+	tcase_add_test (tc_input_split_err, test_input_split_err_5);
+	tcase_add_test (tc_input_split_err, test_input_split_err_6);
+	suite_add_tcase (s, tc_input_split_err);
 	
 	return s;
 }
@@ -600,6 +712,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_input_numerals_len_check());
   srunner_add_suite(sr, romancalc_suite_input_numerals_validation());
   srunner_add_suite(sr, romancalc_suite_input_split_check());
+  srunner_add_suite(sr, romancalc_suite_input_split_check_error());
   srunner_add_suite(sr, romancalc_suite_full_addition_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
