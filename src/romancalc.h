@@ -76,6 +76,6 @@ char *rnum_digit_group(char *rnum_str);
 char *rnum_reduce_multi_to_higher_digits(char *rnum_str);
 char *rnum_reduce_improper_to_proper_digits(char *rnum_str);
 char *rnum_reduce_fully(char *rnum_str);
-
+rn_pair_strct_type* rnum_full_add(char *rn_exp_str);
 #endif
 

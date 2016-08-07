@@ -266,7 +266,8 @@ START_TEST (test_input_split )
 	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
-	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);         // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
 	
 	ptr_tst_pair = rnum_input_split ("V+V");			//
@@ -274,6 +275,7 @@ START_TEST (test_input_split )
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
 	
 	ptr_tst_pair = rnum_input_split ("V+");			//
@@ -281,6 +283,7 @@ START_TEST (test_input_split )
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
 	
 	ptr_tst_pair = rnum_input_split ("+V");			//
@@ -288,6 +291,7 @@ START_TEST (test_input_split )
 	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
 	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
 	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
 	teardown();
 	
 }
@@ -424,7 +428,7 @@ START_TEST (test_numeral_reduction_fully	)
 	ck_assert_str_eq (rnum_reduce_fully ("IVXLCDM"),"MDCLXVI");
 	ck_assert_str_eq (rnum_reduce_fully ("IDXLCVM"),"MDCLXVI");
 	ck_assert_str_eq (rnum_reduce_fully ("IVXLCDMIVXLCDM"),"MMMCCCXXXII");
-
+	
 	// this should pass ALL Previously defined tests
 	// include tests from "romancalc_suite_digit_reduciton_multi_to_higher_check"
 	ck_assert_str_eq (rnum_reduce_fully ("DD"),"M");
@@ -450,7 +454,7 @@ START_TEST (test_numeral_reduction_fully	)
 	ck_assert_str_eq (rnum_reduce_fully ("LXXXX"),"XC"); //  90
 	ck_assert_str_eq (rnum_reduce_fully ("CCCC") ,"CD"); // 400
 	ck_assert_str_eq (rnum_reduce_fully ("DCCCC"),"CM"); // 900
-
+	
 	// test ing new combinations
 	ck_assert_str_eq (rnum_reduce_fully ("MDCCCCLXXXXIIII"),"MCMXCIV"); // 1994
 	ck_assert_str_eq (rnum_reduce_fully ("MCCCCCCCCCXXXXXXXXXIIIIIIIII"),\
@@ -475,6 +479,56 @@ romancalc_suite_digit_reduction_full_check(void)
 	return s;
 }
 
+// MARK: romancalc_suite_full_addition_check
+START_TEST (test_full_addition	)
+{
+	ptr_tst_pair = rnum_full_add ("V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);         // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+	ptr_tst_pair = rnum_full_add ("V+V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "V");          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+	ptr_tst_pair = rnum_full_add ("V+");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+	
+	ptr_tst_pair = rnum_full_add ("+V");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "V");			// and first number loaded
+	ck_assert_ptr_eq( (*ptr_tst_pair).num_str_2, NULL);          // and no second number
+	ck_assert_ptr_eq( (*ptr_tst_pair).result_str, NULL);        // no result at this test
+	teardown();
+}
+END_TEST
+
+Suite *
+romancalc_suite_full_addition_check(void)
+{
+	Suite *s = suite_create ("\nRoman Calc Suite Test Full Addition check");
+	
+	/* Digits test case */
+	TCase *tc_full_addition = tcase_create ("Test Roman Full Addition\n");
+	tcase_add_test (tc_full_addition, test_full_addition);
+	suite_add_tcase (s, tc_full_addition);
+	
+	return s;
+}
+
 // MARK: Main routine
 int
 main (void)
@@ -491,6 +545,7 @@ main (void)
   srunner_add_suite(sr, romancalc_suite_input_numerals_len_check());
   srunner_add_suite(sr, romancalc_suite_input_numerals_validation());
   srunner_add_suite(sr, romancalc_suite_input_split_check());
+  srunner_add_suite(sr, romancalc_suite_full_addition_check());
   srunner_run_all (sr, CK_VERBOSE);
   number_failed = srunner_ntests_failed (sr);
   srunner_free (sr);

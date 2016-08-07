@@ -554,4 +554,45 @@ char *rnum_reduce_fully(char *rnum_str){
 }
 
 
+/*******************************************************
+ * rnum_full_add
+ *   full expression add
+ * input:
+ *	     rn_exp_str  NULL terminated string containg
+ *                 roman numeral
+ * returns:
+ *       rn_pair_strct_type
+ *
+ * typedef struct {
+ *   char *num_str_1;
+ *   char *num_str_2;
+ *   char *result_str;
+ *   int err;
+ *  } rn_pair_strct_type;
+ * input examples
+ * Input      num_str_1 num_str_2 result_str   err
+ *  V+V          V        V          X     RNUM_ERR_NONE
+ *  V+           V        V          X     RNUM_ERR_NONE
+ *  +V           V       NULL        V     RNUM_ERR_NONE
+ *   V           V       NULL        V     RNUM_ERR_NONE
+ *  ""          NULL     NULL       NULL   RNUM_ERR_INPUT_LEN_ZERO
+ * NULL         NULL     NULL       NULL   RNUM_ERR_INPUT_NULL
+ * (string      NULL     NULL       NULL   RNUM_ERR_INPUT_LEN_EXCEED
+ * too long)
+ * (badly       NULL     NULL       NULL   RNUM_ERR_INVALID_NUMERAL_FORMAT
+ * formatted number)
+ * (bad chars   NULL     NULL       NULL   RNUM_ERR_INPUT_NON_NUMERAL
+ * in number)
+ 
+ *******************************************************/
+rn_pair_strct_type* rnum_full_add(char *rn_exp_str){
+	rn_pair_strct_type *rn_rslt;							// result storage
+	
+	rn_rslt = rnum_input_split(rn_exp_str);					// split the input
+	
+	
+	return rn_rslt;
+}
+
+
 /* end of romancalc.c */
