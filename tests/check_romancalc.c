@@ -553,6 +553,18 @@ START_TEST (test_full_addition_5	)
 }
 END_TEST
 
+START_TEST (test_full_addition_5a	)
+{
+	ptr_tst_pair = rnum_full_add ("MMMDccclXXXVIII+MmMdCcClXxXvIiI");			//
+	ck_assert_ptr_ne( ptr_tst_pair, NULL);						// should return value
+	ck_assert_int_eq( (*ptr_tst_pair).err, RNUM_ERR_NONE);		// with no errors
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_1, "MMMDCCCLXXXVIII");			// and first number loaded
+	ck_assert_str_eq( (*ptr_tst_pair).num_str_2, "MMMDCCCLXXXVIII");          // and no second number
+	ck_assert_str_eq( (*ptr_tst_pair).result_str, "MMMMMMMDCCLXXVI");        // no result at this test
+	teardown();
+}
+END_TEST
+
 Suite *
 romancalc_suite_full_addition_check(void)
 {
@@ -565,6 +577,7 @@ romancalc_suite_full_addition_check(void)
 	tcase_add_test (tc_full_addition, test_full_addition_2a);
 	tcase_add_test (tc_full_addition, test_full_addition_3);
 	tcase_add_test (tc_full_addition, test_full_addition_4);
+	tcase_add_test (tc_full_addition, test_full_addition_5);
 	tcase_add_test (tc_full_addition, test_full_addition_5);
 	suite_add_tcase (s, tc_full_addition);
 	
