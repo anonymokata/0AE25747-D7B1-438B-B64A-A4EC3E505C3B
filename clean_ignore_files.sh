@@ -8,7 +8,7 @@ echo       make, automake, autoconf, and autoreconf can be tested
 echo '********************************************************************'
 echo '********************************************************************'
 echo
-ehco
+echo
 rm    aclocal.m4
 rm -R autom4te.cache
 rm -R build-aux
