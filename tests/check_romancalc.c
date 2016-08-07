@@ -458,9 +458,7 @@ START_TEST (test_numeral_reduction_fully	)
 	
 	// test ing new combinations
 	ck_assert_str_eq (rnum_reduce_fully ("VIVI"),"XII"); // 6 + 6 = 12
-	ck_assert_str_eq (rnum_reduce_fully ("ICIC"),"CLXXXVIII"); // 99 + 99 = 188
 	ck_assert_str_eq (rnum_reduce_fully ("CCXXIICCCXXXIII"),"DLV"); // 222 + 333 = 555
-	ck_assert_str_eq (rnum_reduce_fully ("MMMDCCCLXXXVIIIMMMDCCCLXXXVIII"),"MMMMMMMDCCLXXVI"); // 3888 + 3888 = 7776
 }
 END_TEST
 
