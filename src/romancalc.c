@@ -343,7 +343,6 @@ rn_pair_strct_type * rnum_input_split(char *rn_exp_str){
  *       cm         dcccc
  *******************************************************/
 char *rnum_subt_removal(char *rnum_str){
-	char * ch_rslt;
 	char tstr[TSTR_LEN];
 	char *cptr_dest = tstr;								// point to destination of next chunchk
 	
@@ -379,11 +378,10 @@ char *rnum_subt_removal(char *rnum_str){
 					*cptr_dest++ = *rnum_str++;				// and fix next source and destination
 				}
 			}
-			ch_rslt = strdup(tstr);							// use strdup to alloc memory
-			return ch_rslt;
+			return strdup(tstr);							// use strdup to alloc memory
 		}
 		else
-			return rnum_str;
+			return strdup(rnum_str);
 	}
 	return NULL;
 }
